@@ -77,7 +77,7 @@ const Root = () => {
               />
             )}
           />
-          <Route pat="/test" component={Test} />
+          <Route path="/test" component={Test} />
           <AuthRoute
             authenticated={authenticated}
             path="/profile"
