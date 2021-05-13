@@ -9,12 +9,13 @@ import { Home } from "../components";
 import { About } from "../components";
 import { NotFound } from "../components";
 import { Profile } from "../components";
-import { AuthRoute } from "../components";
 import { LoginForm } from "../components";
 import { LogoutButton } from "../components";
+import { Test } from "../components";
 
 // signin function
-import { signIn } from "../components";
+import { signIn } from "../function";
+import { AuthRoute } from "../function";
 
 const number = 4;
 const Root = () => {
@@ -57,6 +58,9 @@ const Root = () => {
             <button>Login</button>
           </Link>
         )}
+        <Link to="/test">
+          <button>test</button>
+        </Link>
       </header>
       <hr />
       <main>
@@ -73,6 +77,7 @@ const Root = () => {
               />
             )}
           />
+          <Route pat="/test" component={Test} />
           <AuthRoute
             authenticated={authenticated}
             path="/profile"

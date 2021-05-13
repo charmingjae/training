@@ -61,6 +61,12 @@ module.exports = {
     open: true,
     historyApiFallback: true,
     hot: true,
+    proxy: {
+      "/api": {
+        target: "http://localhost:3001/",
+        changeOrigin: true,
+      },
+    },
   },
   devtool: "eval-cheap-source-map",
 };

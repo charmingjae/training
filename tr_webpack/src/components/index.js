@@ -4,7 +4,6 @@ export { default as Profile } from "./Profile/Profile";
 export { default as About } from "./About/About";
 export { default as Home } from "./Home/Home";
 export { default as NotFound } from "./NotFound/NotFound";
-export { default as AuthRoute } from "../function/AuthRoute/AuthRoute";
 export { default as LoginForm } from "./LoginForm/LoginForm";
 export { default as LogoutButton } from "./LogoutButton/LogoutButton";
-export { signIn } from "../function/Auth/auth";
+export { default as Test } from "./Test/Test";
