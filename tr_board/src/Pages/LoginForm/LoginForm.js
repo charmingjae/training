@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
+import { hot } from "react-hot-loader";
 
 // import input component
 import { LoginInput } from "../../Components";
@@ -49,4 +50,4 @@ function LoginForm({ authenticated, login, location }) {
   );
 }
 
-export default LoginForm;
+export default hot(module)(LoginForm);
