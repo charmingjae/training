@@ -26,7 +26,13 @@ router.post("/api/login", (req, res) => {
 
 // [SignUp.js] Do register router
 router.post("/api/register", (req, res) => {
-  console.log("[/api/register] : ", req.body);
+  const userID = req.body.userID;
+  const userPW = req.body.userPW;
+
+  const dbQuery = "INSERT INTO member(userID, userPW) VALUES(?,?)";
+  db.query(dbQuery, [userID, userPW], (err, result) => {
+    console.log(result.affectedRows);
+  });
 });
 
 module.exports = router;
