@@ -4,15 +4,18 @@ import { Redirect } from "react-router-dom";
 // import input component
 import { LoginInput } from "../../Components";
 
-function LoginForm({ authenticated, doLogin, location }) {
+function LoginForm({ authenticated, login, location }) {
   // init const
   const [userID, setUserID] = useState("");
   const [userPW, setUserPW] = useState("");
 
   const onButtonClick = () => {
     try {
+      // log now userID, userPW
+      console.log("[CHECK] userID : ", userID);
+      console.log("[CHECK] userPW : ", userPW);
       // try login using was passed doLogin function
-      doLogin({ userID, userPW });
+      login({ userID, userPW });
     } catch (e) {
       alert("Failed to Login");
       setUserID("");
@@ -41,7 +44,7 @@ function LoginForm({ authenticated, doLogin, location }) {
     <>
       <h1>Login</h1>
       <LoginInput setID={setID} setPW={setPW} />
-      <button>Login</button>
+      <button onClick={onButtonClick}>Login</button>
     </>
   );
 }

@@ -3,7 +3,7 @@ import { Link, Route, Switch, BrowserRouter as Router } from "react-router-dom";
 import { hot } from "react-hot-loader";
 
 // import component
-import { LoginButton, LogoutButton } from "../Components";
+import { LogoutButton } from "../Components";
 
 // import pages
 import { LoginForm, Main } from "../Pages";

@@ -6,11 +6,11 @@ const users = [
 
 export function signIn({ userID, userPW }) {
   const user = users.find(
-    (user) => user.email === email && user.password === password
+    (user) => user.email === userID && user.password === userPW
   );
   if (user === undefined) throw new Error();
 
-  console.log("[FUNCTION] user : ", user);
+  console.log("[SignIn.js] user : ", user);
 
   return user;
 }
