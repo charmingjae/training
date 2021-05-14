@@ -4,12 +4,11 @@ import { hot } from "react-hot-loader";
 
 // import component
 import { LogoutButton } from "../Components";
-
 // import pages
-import { LoginForm, Main } from "../Pages";
-
+import { LoginForm, Main, RegisterForm } from "../Pages";
 // import function
 import { signIn } from "../Function";
+import { signUp } from "../Function";
 
 const Root = () => {
   // init user const
@@ -22,6 +21,10 @@ const Root = () => {
   const doLogin = ({ userID, userPW }) => {
     // Set User using returned value : user
     setUser(signIn({ userID, userPW }));
+  };
+
+  const doRegister = ({ userID, userPW }) => {
+    setUser(signUp({ userID, userPW }));
   };
 
   // Logout const
@@ -38,9 +41,14 @@ const Root = () => {
         {authenticated ? (
           <LogoutButton logout={doLogout} username={user.name} />
         ) : (
-          <Link to="/login">
-            <button>Login</button>
-          </Link>
+          <>
+            <Link to="/login">
+              <button>Login</button>
+            </Link>
+            <Link to="/register">
+              <button>Register</button>
+            </Link>
+          </>
         )}
       </header>
       <main>
@@ -52,6 +60,16 @@ const Root = () => {
               <LoginForm
                 authenticated={authenticated}
                 login={doLogin}
+                {...props}
+              />
+            )}
+          />
+          <Route
+            path="/register"
+            render={(props) => (
+              <RegisterForm
+                authenticated={authenticated}
+                register={doRegister}
                 {...props}
               />
             )}

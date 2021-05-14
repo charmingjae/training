@@ -12,6 +12,8 @@ const route = require("./routes/index");
 app.use(bodyParser.json());
 
 app.get("/api/dd", route);
+app.post("/api/login", route);
+app.post("/api/register", route);
 
 app.listen(port, () => {
   console.log(`express is running on ${port}`);
