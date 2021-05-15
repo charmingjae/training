@@ -7,14 +7,27 @@ const users = [
 ];
 
 export function signIn({ userID, userPW }) {
-  axios.post("/api/login", [userID, userPW]);
-
-  const user = users.find(
-    (user) => user.email === userID && user.password === userPW
-  );
-  if (user === undefined) throw new Error();
-
-  console.log("[SignIn.js] user : ", user);
-
-  return user;
+  // Init user
+  console.log("here");
+  var user = axios
+    .post("/api/login", { userID: userID, userPW: userPW })
+    .then((response) => {
+      const result = response.data.result;
+      const userID = response.data.userID;
+      console.log(result);
+      console.log(userID);
+      if (result === "success") {
+        console.log("true");
+        user = userID;
+        // const user = users.find(
+        //   (user) => user.email === userID && user.password === userPW
+        // );
+        // if (user === undefined) throw new Error();
+        console.log("[SignIn.js] user : ", user);
+        return user;
+      } else {
+        console.log("false");
+      }
+    });
+  // return user;
 }

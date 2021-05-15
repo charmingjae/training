@@ -22,6 +22,21 @@ router.get("/api/dd", (req, res) => {
 // [SignIn.js] Do login router
 router.post("/api/login", (req, res) => {
   console.log(req.body);
+
+  // declare userID, userPW
+  const userID = req.body.userID;
+  const userPW = req.body.userPW;
+
+  const sql = "SELECT COUNT(*) FROM member WHERE userID=? AND userPW =?";
+
+  db.query(sql, [userID, userPW], (err, result) => {
+    console.log(result[0]["COUNT(*)"]);
+    if (result[0]["COUNT(*)"] == 1) {
+      res.send({ result: "success", userID: userID });
+    } else {
+      res.send({ result: "failed" });
+    }
+  });
 });
 
 // [SignUp.js] Do register router

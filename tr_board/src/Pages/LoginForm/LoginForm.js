@@ -16,7 +16,8 @@ function LoginForm({ authenticated, login, location }) {
       console.log("[CHECK] userID : ", userID);
       console.log("[CHECK] userPW : ", userPW);
       // try login using was passed doLogin function
-      login({ userID, userPW });
+      var test = login({ userID, userPW });
+      console.log("test : ", test);
     } catch (e) {
       alert("Failed to Login");
       setUserID("");
