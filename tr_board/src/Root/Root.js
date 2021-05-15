@@ -18,9 +18,10 @@ const Root = () => {
   const authenticated = user != null;
 
   // Login Function
-  const doLogin = ({ userID, userPW }) => {
+  const doLogin = async ({ userID, userPW }) => {
     // Set User using returned value : user
-    setUser(signIn({ userID, userPW }));
+    // setUser(signIn({ userID, userPW }));
+    await signIn({ userID, userPW });
   };
 
   const doRegister = ({ userID, userPW }) => {
@@ -39,8 +40,9 @@ const Root = () => {
         </Link>
 
         {authenticated ? (
-          <LogoutButton logout={doLogout} username={user.name} />
+          console.log("[ROOT user] : ", user)
         ) : (
+          // (<LogoutButton logout={doLogout} username={user.name} />)
           <>
             <Link to="/login">
               <button>Login</button>

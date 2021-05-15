@@ -9,6 +9,7 @@ function LoginForm({ authenticated, login, location }) {
   // init const
   const [userID, setUserID] = useState("");
   const [userPW, setUserPW] = useState("");
+  var dd = "";
 
   const onButtonClick = () => {
     try {
@@ -16,8 +17,7 @@ function LoginForm({ authenticated, login, location }) {
       console.log("[CHECK] userID : ", userID);
       console.log("[CHECK] userPW : ", userPW);
       // try login using was passed doLogin function
-      var test = login({ userID, userPW });
-      console.log("test : ", test);
+      dd = login({ userID, userPW });
     } catch (e) {
       alert("Failed to Login");
       setUserID("");
