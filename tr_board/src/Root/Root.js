@@ -21,7 +21,16 @@ const Root = () => {
   const doLogin = async ({ userID, userPW }) => {
     // Set User using returned value : user
     // setUser(signIn({ userID, userPW }));
-    await signIn({ userID, userPW });
+    var test = await signIn({ userID, userPW });
+    console.log("[tEsT] : ", test);
+    if (test === undefined) {
+      // alert("failed login");
+      console.log("test : ", test);
+      return undefined;
+    } else {
+      setUser(test);
+      return 1;
+    }
   };
 
   const doRegister = ({ userID, userPW }) => {
@@ -40,9 +49,10 @@ const Root = () => {
         </Link>
 
         {authenticated ? (
-          console.log("[ROOT user] : ", user)
+          // console.log("[ROOT user] : ", user)
+          <LogoutButton logout={doLogout} username={user} />
         ) : (
-          // (<LogoutButton logout={doLogout} username={user.name} />)
+          // <LogoutButton logout={doLogout} username={user} />
           <>
             <Link to="/login">
               <button>Login</button>

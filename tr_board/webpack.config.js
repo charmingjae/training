@@ -6,7 +6,10 @@ const port = 3000;
 
 module.exports = {
   mode: "development",
-  entry: "./src/index.js",
+  // entry: "./src/index.js",
+  entry: {
+    app: ["babel-polyfill", "./src/index.js"],
+  },
   output: {
     path: path.resolve(__dirname, "./dist"), // 결과물 경로
     filename: "bundle.[fullhash].js",

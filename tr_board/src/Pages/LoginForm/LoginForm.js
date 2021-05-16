@@ -9,16 +9,19 @@ function LoginForm({ authenticated, login, location }) {
   // init const
   const [userID, setUserID] = useState("");
   const [userPW, setUserPW] = useState("");
-  var dd = "";
 
-  const onButtonClick = () => {
+  const onButtonClick = async () => {
     try {
       // log now userID, userPW
       console.log("[CHECK] userID : ", userID);
       console.log("[CHECK] userPW : ", userPW);
       // try login using was passed doLogin function
-      dd = login({ userID, userPW });
+      var dd = await login({ userID, userPW });
+      console.log("[dd] : ", dd);
+      if (dd === undefined) throw new Error();
     } catch (e) {
+      // 원래 login() 부분에서 throw new Error() 발생 시
+      // 하단의 부분이 실행 되어야 하는데, throw new Error 하는 방법 찾지 못함
       alert("Failed to Login");
       setUserID("");
       setUserPW("");
