@@ -34,7 +34,7 @@ export function signIn({ userID, userPW }) {
 
   function function1() {
     return new Promise(function (resolve, reject) {
-      var context1 = axios
+      axios
         .post("/api/login", {
           userID: userID,
           userPW: userPW,
@@ -47,20 +47,6 @@ export function signIn({ userID, userPW }) {
     console.log("[this user] : ", response);
     return response.userID;
   });
-
-  user = user.then((response) => {
-    console.log("[KKK] : ", response);
-    console.log("[KKK TYPE] : ", typeof response);
-    if (response === undefined) {
-      response = undefined;
-    }
-    return response;
-  });
-  console.log("[user type] : ", typeof user);
-  console.log("[user] : ", user);
-  console.log("[user length] : ", Object.keys(user).length);
-  if (user === undefined) throw new Error();
-  console.log("zzzzzzzzz");
 
   return user;
 }

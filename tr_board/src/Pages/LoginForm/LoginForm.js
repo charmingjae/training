@@ -16,13 +16,13 @@ function LoginForm({ authenticated, login, location }) {
       console.log("[CHECK] userID : ", userID);
       console.log("[CHECK] userPW : ", userPW);
       // try login using was passed doLogin function
-      var dd = await login({ userID, userPW });
-      console.log("[dd] : ", dd);
-      if (dd === undefined) throw new Error();
+      var getLoginResult = await login({ userID, userPW });
+      // console.log("[LoginForm.js] getLoginResult : ", getLoginResult);
+      if (getLoginResult === undefined) throw new Error();
     } catch (e) {
       // 원래 login() 부분에서 throw new Error() 발생 시
       // 하단의 부분이 실행 되어야 하는데, throw new Error 하는 방법 찾지 못함
-      alert("Failed to Login");
+      alert("로그인 정보를 확인하세요.");
       setUserID("");
       setUserPW("");
     }

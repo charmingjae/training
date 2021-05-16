@@ -21,15 +21,15 @@ const Root = () => {
   const doLogin = async ({ userID, userPW }) => {
     // Set User using returned value : user
     // setUser(signIn({ userID, userPW }));
-    var test = await signIn({ userID, userPW });
-    console.log("[tEsT] : ", test);
-    if (test === undefined) {
+    var getSigninResult = await signIn({ userID, userPW });
+    // console.log("[Root.js] success getSigninResult: ", getSigninResult);
+    if (getSigninResult === undefined) {
       // alert("failed login");
-      console.log("test : ", test);
+      // console.log("[Root.js] failed getSigninResult : ", getSigninResult);
       return undefined;
     } else {
-      setUser(test);
-      return 1;
+      setUser(getSigninResult);
+      return true;
     }
   };
 
