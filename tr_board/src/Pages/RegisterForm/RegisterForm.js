@@ -9,6 +9,7 @@ function RegisterForm({ authenticated, register, location }) {
   // init const
   const [userID, setUserID] = useState("");
   const [userPW, setUserPW] = useState("");
+  const [userPhone, setUserPhone] = useState("");
 
   const onButtonClick = () => {
     try {
@@ -16,11 +17,12 @@ function RegisterForm({ authenticated, register, location }) {
       console.log("[RegisterForm] userID : ", userID);
       console.log("[RegisterForm] userPW : ", userPW);
       // try login using was passed doLogin function
-      register({ userID, userPW });
+      register({ userID, userPW, userPhone });
     } catch (e) {
       alert("Failed to Register");
       setUserID("");
       setUserPW("");
+      setUserPhone("");
     }
   };
 
@@ -41,10 +43,14 @@ function RegisterForm({ authenticated, register, location }) {
     setUserPW(value);
   };
 
+  const setPhone = (value) => {
+    setUserPhone(value);
+  };
+
   return (
     <div>
       <h1>Register</h1>
-      <RegisterInput setID={setID} setPW={setPW} />
+      <RegisterInput setID={setID} setPW={setPW} setPhone={setPhone} />
       <button onClick={onButtonClick}>Register</button>
     </div>
   );

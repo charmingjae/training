@@ -6,11 +6,15 @@ const users = [
   { email: "park@test.com", password: "789", name: "Park" },
 ];
 
-export function signUp({ userID, userPW }) {
+export function signUp({ userID, userPW, userPhone }) {
   // console.log("[SignUp] : ", userID);
   // console.log("[SignUp] : ", userPW);
   // router : register api
-  axios.post("/api/register", { userID: userID, userPW: userPW });
+  axios.post("/api/register", {
+    userID: userID,
+    userPW: userPW,
+    userPhone: userPhone,
+  });
   // dummy check
   const user = users.find(
     (user) => user.email === userID && user.password === userPW

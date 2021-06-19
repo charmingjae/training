@@ -7,7 +7,7 @@ const router = express.Router();
 
 // * How to use Database
 router.get("/api/dd", (req, res) => {
-  const getDupCnt = "SELECT * FROM mentee";
+  const getDupCnt = "SELECT * FROM member";
   db.query(getDupCnt, (err, result) => {
     // var queryRes = result[0]["COUNT(*)"];
     // if (queryRes >= 1) {
@@ -15,7 +15,7 @@ router.get("/api/dd", (req, res) => {
     // } else {
     //   res.send({ result: 1 });
     // }
-    res.send(result);
+    console.log("HelloWorld");
   });
 });
 
@@ -43,10 +43,14 @@ router.post("/api/login", (req, res) => {
 router.post("/api/register", (req, res) => {
   const userID = req.body.userID;
   const userPW = req.body.userPW;
+  const userPhone = req.body.userPhone;
 
-  const dbQuery = "INSERT INTO member(userID, userPW) VALUES(?,?)";
-  db.query(dbQuery, [userID, userPW], (err, result) => {
-    console.log(result.affectedRows);
+  const dbQuery = "INSERT INTO member(userID, userPW, userPhone) VALUES(?,?,?)";
+  db.query(dbQuery, [userID, userPW, userPhone], (err, result) => {
+    console.log("err : ", err);
+    console.log("userID : ", userID);
+    console.log("userPW : ", userPW);
+    console.log("result : ", result);
   });
 });
 

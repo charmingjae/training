@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Link, Route, Switch, BrowserRouter as Router } from "react-router-dom";
 import { hot } from "react-hot-loader";
 
+// import css
+import { size, design, divBackground } from "./Root.module.css";
 // import component
 import { LogoutButton } from "../Components";
 // import pages
@@ -33,8 +35,8 @@ const Root = () => {
     }
   };
 
-  const doRegister = ({ userID, userPW }) => {
-    setUser(signUp({ userID, userPW }));
+  const doRegister = ({ userID, userPW, userPhone }) => {
+    setUser(signUp({ userID, userPW, userPhone }));
   };
 
   // Logout const
@@ -44,24 +46,26 @@ const Root = () => {
   return (
     <Router>
       <header>
-        <Link to="/">
-          <button>Main</button>
-        </Link>
+        <div className={divBackground}>
+          <Link to="/">
+            <button className={`${size} ${design}`}>Main</button>
+          </Link>
 
-        {authenticated ? (
-          // console.log("[ROOT user] : ", user)
-          <LogoutButton logout={doLogout} username={user} />
-        ) : (
-          // <LogoutButton logout={doLogout} username={user} />
-          <>
-            <Link to="/login">
-              <button>Login</button>
-            </Link>
-            <Link to="/register">
-              <button>Register</button>
-            </Link>
-          </>
-        )}
+          {authenticated ? (
+            // console.log("[ROOT user] : ", user)
+            <LogoutButton logout={doLogout} username={user} />
+          ) : (
+            // <LogoutButton logout={doLogout} username={user} />
+            <>
+              <Link to="/login">
+                <button>Login</button>
+              </Link>
+              <Link to="/register">
+                <button>Register</button>
+              </Link>
+            </>
+          )}
+        </div>
       </header>
       <main>
         <Switch>

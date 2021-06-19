@@ -1,0 +1,22 @@
+.design{
+    background-color:white;
+    border: 1;
+    border-radius: 40px 80px/80px 40px;
+    box-shadow: 0.5px 0.5px 0.5px 0.5px gray;
+}
+
+.design:hover{
+    background-color:gray;
+    color: white;
+    transition-duration: 0.4s;
+}
+
+
+.size{
+    height:30px;
+    width:70px;
+}
+
+.div_background{
+    background-color: none;
+}
