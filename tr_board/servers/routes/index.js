@@ -15,7 +15,7 @@ router.get("/api/dd", (req, res) => {
     // } else {
     //   res.send({ result: 1 });
     // }
-    console.log("HelloWorld");
+    // console.log("HelloWorld");
   });
 });
 
