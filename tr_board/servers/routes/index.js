@@ -20,6 +20,7 @@ router.get("/api/dd", (req, res) => {
 });
 
 // [SignIn.js] Do login router
+// Need refactoring
 router.post("/api/login", (req, res) => {
   console.log(req.body);
 
