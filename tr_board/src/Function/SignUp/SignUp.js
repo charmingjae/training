@@ -1,10 +1,11 @@
 import axios from "axios";
 
-const users = [
-  { email: "kim@test.com", password: "123", name: "Kim" },
-  { email: "lee@test.com", password: "456", name: "Lee" },
-  { email: "park@test.com", password: "789", name: "Park" },
-];
+// * test data
+// const users = [
+//   { email: "kim@test.com", password: "123", name: "Kim" },
+//   { email: "lee@test.com", password: "456", name: "Lee" },
+//   { email: "park@test.com", password: "789", name: "Park" },
+// ];
 
 export function signUp({ userID, userPW, userPhone }) {
   // console.log("[SignUp] : ", userID);
