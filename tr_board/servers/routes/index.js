@@ -1,9 +1,10 @@
 // server/routes index
 
 // import db config file
-const db = require("../../config/db");
+const { db, salt } = require("../../config/db");
 const express = require("express");
 const router = express.Router();
+const crypto = require("crypto");
 
 // * How to use Database
 router.get("/api/dd", (req, res) => {
@@ -28,34 +29,100 @@ router.post("/api/login", (req, res) => {
   const userID = req.body.userID;
   const userPW = req.body.userPW;
 
-  const sql = "SELECT COUNT(*) FROM member WHERE userID=? AND userPW =?";
+  function saltPassword(userPW) {
+    return new Promise(function (resolve, reject) {
+      // crypto.randomBytes(64, (err, buf) => {
+      //   crypto.pbkdf2(userPW, "saltThat", 100000, 64, "sha512", (err, key) => {
+      //     console.log(key.toString("base64"));
+      //     resolve(key.toString("base64"));
+      //   });
+      // });
+      crypto.pbkdf2(userPW, salt, 100000, 64, "sha512", (err, key) => {
+        console.log(key.toString("base64"));
+        resolve(key.toString("base64"));
+      });
+    });
+  }
+  // END HERE
 
-  db.query(sql, [userID, userPW], (err, result) => {
-    console.log(result[0]["COUNT(*)"]);
-    if (result[0]["COUNT(*)"] >= 1) {
-      res.send({ result: "success", userID: userID });
-    } else {
-      res.send({ result: "failed" });
+  async function handler(req, res) {
+    const newPW = await saltPassword(userPW);
+    console.log("newPW : ", newPW);
+    return newPW;
+  }
+
+  (async () => {
+    try {
+      const asyTest = await handler();
+
+      console.log("asyTest : ", asyTest);
+
+      const sql = "SELECT COUNT(*) FROM member WHERE userID=? AND userPW =?";
+
+      db.query(sql, [userID, asyTest], (err, result) => {
+        console.log(result[0]["COUNT(*)"]);
+        if (result[0]["COUNT(*)"] >= 1) {
+          res.send({ result: "success", userID: userID });
+        } else {
+          res.send({ result: "failed" });
+        }
+      });
+    } catch (error) {
+      console.log(error);
     }
-  });
+  })();
 });
 
 // [SignUp.js] Do register router
 router.post("/api/register", (req, res) => {
   const userID = req.body.userID;
-  const userPW = req.body.userPW;
+  var userPW = req.body.userPW;
   const userPhone = req.body.userPhone;
+  // Salt Password
 
-  const dbQuery = "INSERT INTO member(userID, userPW, userPhone) VALUES(?,?,?)";
-  db.query(dbQuery, [userID, userPW, userPhone], (err, result) => {
-    if (result.affectedRows >= 1) {
-      console.log("REGISTER SUCCESS");
-      res.send({ result: "success", userID: userID });
-    } else {
-      console.log("REGISTER failed");
-      res.send({ result: "failed" });
+  function saltPassword(userPW) {
+    return new Promise(function (resolve, reject) {
+      crypto.randomBytes(64, (err, buf) => {
+        crypto.pbkdf2(userPW, salt, 100000, 64, "sha512", (err, key) => {
+          console.log(key.toString("base64"));
+          resolve(key.toString("base64"));
+        });
+      });
+    });
+  }
+  // END HERE
+
+  async function handler(req, res) {
+    const newPW = await saltPassword(userPW);
+    console.log("newPW : ", newPW);
+    return newPW;
+  }
+
+  (async () => {
+    try {
+      const asyTest = await handler();
+
+      console.log("asyTest : ", asyTest);
+
+      const dbQuery =
+        "INSERT INTO member(userID, userPW, userPhone) VALUES(?,?,?)";
+      db.query(dbQuery, [userID, asyTest, userPhone], (err, result) => {
+        if (err) {
+          console.log(err);
+        } else {
+          if (result.affectedRows >= 1) {
+            console.log("REGISTER SUCCESS");
+            res.send({ result: "success", userID: userID });
+          } else {
+            console.log("REGISTER failed");
+            res.send({ result: "failed" });
+          }
+        }
+      });
+    } catch (error) {
+      console.log(error);
     }
-  });
+  })();
 });
 
 module.exports = router;
