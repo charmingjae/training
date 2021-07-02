@@ -13,12 +13,16 @@ function RegisterForm({ authenticated, register, location }) {
 
   const onButtonClick = async () => {
     try {
-      // log now userID, userPW
-      console.log("[RegisterForm] userID : ", userID);
-      console.log("[RegisterForm] userPW : ", userPW);
-      // try login using was passed doLogin function
-      var getRegisterResult = await register({ userID, userPW, userPhone });
-      if (getRegisterResult === undefined) throw new Error();
+      if (userID == "" || userPW == "" || userPhone == "") {
+        alert("Check your data");
+      } else {
+        // log now userID, userPW
+        console.log("[RegisterForm] userID : ", userID);
+        console.log("[RegisterForm] userPW : ", userPW);
+        // try login using was passed doLogin function
+        var getRegisterResult = await register({ userID, userPW, userPhone });
+        if (getRegisterResult === undefined) throw new Error();
+      }
     } catch (e) {
       alert("Failed to Register");
       setUserID("");
