@@ -35,8 +35,19 @@ const Root = () => {
     }
   };
 
-  const doRegister = ({ userID, userPW, userPhone }) => {
-    setUser(signUp({ userID, userPW, userPhone }));
+  // const doRegister = ({ userID, userPW, userPhone }) => {
+  //   setUser(signUp({ userID, userPW, userPhone }));
+  // };
+  const doRegister = async ({ userID, userPW, userPhone }) => {
+    var getSignupResult = await signUp({ userID, userPW, userPhone });
+    if (getSignupResult === undefined) {
+      // alert("failed login");
+      // console.log("[Root.js] failed getSigninResult : ", getSigninResult);
+      return undefined;
+    } else {
+      setUser(getSignupResult);
+      return true;
+    }
   };
 
   // Logout const

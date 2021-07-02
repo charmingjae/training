@@ -11,13 +11,14 @@ function RegisterForm({ authenticated, register, location }) {
   const [userPW, setUserPW] = useState("");
   const [userPhone, setUserPhone] = useState("");
 
-  const onButtonClick = () => {
+  const onButtonClick = async () => {
     try {
       // log now userID, userPW
       console.log("[RegisterForm] userID : ", userID);
       console.log("[RegisterForm] userPW : ", userPW);
       // try login using was passed doLogin function
-      register({ userID, userPW, userPhone });
+      var getRegisterResult = await register({ userID, userPW, userPhone });
+      if (getRegisterResult === undefined) throw new Error();
     } catch (e) {
       alert("Failed to Register");
       setUserID("");

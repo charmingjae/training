@@ -32,7 +32,7 @@ router.post("/api/login", (req, res) => {
 
   db.query(sql, [userID, userPW], (err, result) => {
     console.log(result[0]["COUNT(*)"]);
-    if (result[0]["COUNT(*)"] == 1) {
+    if (result[0]["COUNT(*)"] >= 1) {
       res.send({ result: "success", userID: userID });
     } else {
       res.send({ result: "failed" });
@@ -48,10 +48,13 @@ router.post("/api/register", (req, res) => {
 
   const dbQuery = "INSERT INTO member(userID, userPW, userPhone) VALUES(?,?,?)";
   db.query(dbQuery, [userID, userPW, userPhone], (err, result) => {
-    console.log("err : ", err);
-    console.log("userID : ", userID);
-    console.log("userPW : ", userPW);
-    console.log("result : ", result);
+    if (result.affectedRows >= 1) {
+      console.log("REGISTER SUCCESS");
+      res.send({ result: "success", userID: userID });
+    } else {
+      console.log("REGISTER failed");
+      res.send({ result: "failed" });
+    }
   });
 });
 
