@@ -15,42 +15,30 @@ import { signUp } from "../Function";
 const Root = () => {
   // init user const
   const [user, setUser] = useState(null);
-
   // init check login
   const authenticated = user != null;
-
   // Login Function
   const doLogin = async ({ userID, userPW }) => {
-    // Set User using returned value : user
-    // setUser(signIn({ userID, userPW }));
     var getSigninResult = await signIn({ userID, userPW });
-    // console.log("[Root.js] success getSigninResult: ", getSigninResult);
     if (getSigninResult === undefined) {
-      // alert("failed login");
-      // console.log("[Root.js] failed getSigninResult : ", getSigninResult);
       return undefined;
     } else {
       setUser(getSigninResult);
       return true;
     }
   };
-
-  // const doRegister = ({ userID, userPW, userPhone }) => {
-  //   setUser(signUp({ userID, userPW, userPhone }));
-  // };
+  // Register Function
   const doRegister = async ({ userID, userPW, userPhone }) => {
     var getSignupResult = await signUp({ userID, userPW, userPhone });
+    console.log("get registerresult : ", getSignupResult);
     if (getSignupResult === undefined) {
-      // alert("failed login");
-      // console.log("[Root.js] failed getSigninResult : ", getSigninResult);
       return undefined;
     } else {
       setUser(getSignupResult);
       return true;
     }
   };
-
-  // Logout const
+  // Logout Function
   const doLogout = () => setUser(null);
 
   // return
@@ -63,10 +51,8 @@ const Root = () => {
           </Link>
 
           {authenticated ? (
-            // console.log("[ROOT user] : ", user)
             <LogoutButton logout={doLogout} username={user} />
           ) : (
-            // <LogoutButton logout={doLogout} username={user} />
             <>
               <Link to="/login">
                 <button>Login</button>

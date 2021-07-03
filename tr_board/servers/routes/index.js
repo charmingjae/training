@@ -23,43 +23,33 @@ router.get("/api/dd", (req, res) => {
 // [SignIn.js] Do login router
 // Need refactoring
 router.post("/api/login", (req, res) => {
-  console.log(req.body);
-
   // declare userID, userPW
   const userID = req.body.userID;
   const userPW = req.body.userPW;
 
   function saltPassword(userPW) {
     return new Promise(function (resolve, reject) {
-      // crypto.randomBytes(64, (err, buf) => {
-      //   crypto.pbkdf2(userPW, "saltThat", 100000, 64, "sha512", (err, key) => {
-      //     console.log(key.toString("base64"));
-      //     resolve(key.toString("base64"));
-      //   });
-      // });
       crypto.pbkdf2(userPW, salt, 100000, 64, "sha512", (err, key) => {
         console.log(key.toString("base64"));
         resolve(key.toString("base64"));
       });
     });
   }
-  // END HERE
 
   async function handler(req, res) {
     const newPW = await saltPassword(userPW);
-    console.log("newPW : ", newPW);
     return newPW;
   }
 
   (async () => {
     try {
-      const asyTest = await handler();
+      const getSaltedPW = await handler();
 
       console.log("asyTest : ", asyTest);
 
       const sql = "SELECT COUNT(*) FROM member WHERE userID=? AND userPW =?";
 
-      db.query(sql, [userID, asyTest], (err, result) => {
+      db.query(sql, [userID, getSaltedPW], (err, result) => {
         console.log(result[0]["COUNT(*)"]);
         if (result[0]["COUNT(*)"] >= 1) {
           res.send({ result: "success", userID: userID });
@@ -78,7 +68,6 @@ router.post("/api/register", (req, res) => {
   const userID = req.body.userID;
   var userPW = req.body.userPW;
   const userPhone = req.body.userPhone;
-  // Salt Password
 
   function saltPassword(userPW) {
     return new Promise(function (resolve, reject) {
@@ -90,11 +79,9 @@ router.post("/api/register", (req, res) => {
       });
     });
   }
-  // END HERE
 
   async function handler(req, res) {
     const newPW = await saltPassword(userPW);
-    console.log("newPW : ", newPW);
     return newPW;
   }
 
@@ -102,11 +89,11 @@ router.post("/api/register", (req, res) => {
     try {
       const asyTest = await handler();
 
-      console.log("asyTest : ", asyTest);
+      console.log("asyTest : ", getSaltedPW);
 
       const dbQuery =
         "INSERT INTO member(userID, userPW, userPhone) VALUES(?,?,?)";
-      db.query(dbQuery, [userID, asyTest, userPhone], (err, result) => {
+      db.query(dbQuery, [userID, getSaltedPW, userPhone], (err, result) => {
         if (err) {
           console.log(err);
         } else {

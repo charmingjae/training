@@ -1,20 +1,21 @@
+// Const
 const express = require("express");
-const app = express();
 const cors = require("cors");
-// use cors
-app.use(cors());
 const bodyParser = require("body-parser");
+const route = require("./routes/index");
+const app = express();
 const port = process.env.PORT || 3001;
 
-// use routes
-const route = require("./routes/index");
-
+// Uses
+app.use(cors());
 app.use(bodyParser.json());
 
+// Method
 app.get("/api/dd", route);
 app.post("/api/login", route);
 app.post("/api/register", route);
 
+// When start server
 app.listen(port, () => {
   console.log(`express is running on ${port}`);
 });

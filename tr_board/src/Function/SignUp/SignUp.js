@@ -1,13 +1,7 @@
 import axios from "axios";
 
-// * test data
-// const users = [
-//   { email: "kim@test.com", password: "123", name: "Kim" },
-//   { email: "lee@test.com", password: "456", name: "Lee" },
-//   { email: "park@test.com", password: "789", name: "Park" },
-// ];
-
 export function signUp({ userID, userPW, userPhone }) {
+  // /api/register에 데이터 보내고 응답 받아오는 함수
   function chkSignUp() {
     return new Promise(function (resolve, reject) {
       axios
@@ -19,15 +13,12 @@ export function signUp({ userID, userPW, userPhone }) {
         .then((response) => resolve(response.data));
     });
   }
-
+  // chkSignUp에 response 받아오면 response안에 있는 userID 리턴하기
   var user = chkSignUp().then((response) => {
     return response.userID;
   });
-
-  console.log("USER : ", user);
+  // 만약 user가 undefined면 에러 던지기
   if (user === undefined) throw new Error();
-
-  console.log("[SignUp.js] user : ", user);
-
+  // 정상적으로 받아오면 user 리턴
   return user;
 }
