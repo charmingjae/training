@@ -44,11 +44,7 @@ router.post("/api/login", (req, res) => {
   (async () => {
     try {
       const getSaltedPW = await handler();
-
-      console.log("asyTest : ", asyTest);
-
       const sql = "SELECT COUNT(*) FROM member WHERE userID=? AND userPW =?";
-
       db.query(sql, [userID, getSaltedPW], (err, result) => {
         console.log(result[0]["COUNT(*)"]);
         if (result[0]["COUNT(*)"] >= 1) {
@@ -87,10 +83,7 @@ router.post("/api/register", (req, res) => {
 
   (async () => {
     try {
-      const asyTest = await handler();
-
-      console.log("asyTest : ", getSaltedPW);
-
+      const getSaltedPW = await handler();
       const dbQuery =
         "INSERT INTO member(userID, userPW, userPhone) VALUES(?,?,?)";
       db.query(dbQuery, [userID, getSaltedPW, userPhone], (err, result) => {
