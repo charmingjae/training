@@ -5,7 +5,10 @@ function LoginInput({ setID, setPW }) {
     <>
       <input onChange={({ target: { value } }) => setID(value)} type="text" />
       <br />
-      <input onChange={({ target: { value } }) => setPW(value)} type="text" />
+      <input
+        onChange={({ target: { value } }) => setPW(value)}
+        type="password"
+      />
       <br />
       <br />
     </>

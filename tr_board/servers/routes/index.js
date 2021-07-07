@@ -21,9 +21,7 @@ router.get("/api/dd", (req, res) => {
 });
 
 // [SignIn.js] Do login router
-// Need refactoring
 router.post("/api/login", (req, res) => {
-  // declare userID, userPW
   const userID = req.body.userID;
   const userPW = req.body.userPW;
 
