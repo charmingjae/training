@@ -1,0 +1,25 @@
+.divWrapMainContent{
+    display: flex;
+    background-color: black;
+}
+
+.divMainContent{
+    margin: auto;
+    text-align: center;
+}
+
+.contentTheme{
+    font-size:30vw;
+}
+
+.contentSubTheme{
+
+}
+
+.contentRemainTheme{
+
+}
+
+.contentCountUmb{
+
+}
