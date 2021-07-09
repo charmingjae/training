@@ -5,15 +5,15 @@
 
 .divMainContent{
     margin: auto;
+    padding: 0;
     text-align: center;
 }
 
 .contentTheme{
     font-size:30vw;
 }
-
+/* 
 .contentSubTheme{
-
 }
 
 .contentRemainTheme{
@@ -22,4 +22,4 @@
 
 .contentCountUmb{
 
-}
+} */
