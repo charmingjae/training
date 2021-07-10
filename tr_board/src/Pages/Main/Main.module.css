@@ -1,25 +1,28 @@
 .divWrapMainContent{
     display: flex;
-    background-color: black;
 }
 
 .divMainContent{
     margin: auto;
-    padding: 0;
     text-align: center;
 }
 
 .contentTheme{
-    font-size:30vw;
+    font-size:10vw;
+    margin: 0;
 }
-/* 
+
 .contentSubTheme{
+    font-size:2vw;
+    margin: 0;
 }
 
 .contentRemainTheme{
-
+    font-size:4vw;
+    margin-top:20%;
 }
 
 .contentCountUmb{
-
-} */
+    font-size:8vw;
+    margin:0;
+}

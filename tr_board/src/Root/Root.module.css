@@ -1,16 +1,28 @@
-.design{
+.mainDesign{
     background-color:white;
     border: 1;
     border-radius: 40px 80px/80px 40px;
     box-shadow: 0.5px 0.5px 0.5px 0.5px gray;
 }
 
-.design:hover{
+.mainDesign:hover{
     background-color:gray;
     color: white;
     transition-duration: 0.4s;
 }
 
+.otherDesign{
+    background-color:white;
+    border: 1;
+    border-radius: 40px 80px/80px 40px;
+    box-shadow: 0.5px 0.5px 0.5px 0.5px gray;
+    float: right;
+}
+.otherDesign:hover{
+    background-color:gray;
+    color: white;
+    transition-duration: 0.4s;
+}
 
 .size{
     height:30px;
@@ -23,4 +35,10 @@
 
 .root{
     background-color:black;
+}
+
+header{
+    background-color: black;
+    width: 70%;
+    margin: auto;
 }

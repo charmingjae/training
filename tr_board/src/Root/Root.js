@@ -3,7 +3,12 @@ import { Link, Route, Switch, BrowserRouter as Router } from "react-router-dom";
 import { hot } from "react-hot-loader";
 
 // import css
-import { size, design, divBackground } from "./Root.module.css";
+import {
+  size,
+  otherDesign,
+  mainDesign,
+  divBackground,
+} from "./Root.module.css";
 // import component
 import { LogoutButton } from "../Components";
 // import pages
@@ -47,18 +52,22 @@ const Root = () => {
       <header>
         <div className={divBackground}>
           <Link to="/">
-            <button className={`${size} ${design}`}>Main</button>
+            <button className={`${size} ${mainDesign}`}>Main</button>
           </Link>
 
           {authenticated ? (
-            <LogoutButton logout={doLogout} username={user} />
+            <LogoutButton
+              logout={doLogout}
+              username={user}
+              className={`${size} ${otherDesign}`}
+            />
           ) : (
             <>
-              <Link to="/login">
-                <button>Login</button>
-              </Link>
               <Link to="/register">
-                <button>Register</button>
+                <button className={`${size} ${otherDesign}`}>Register</button>
+              </Link>
+              <Link to="/login">
+                <button className={`${size} ${otherDesign}`}>Login</button>
               </Link>
             </>
           )}
