@@ -1,5 +1,11 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
+import {
+  size,
+  otherDesign,
+  mainDesign,
+  divBackground,
+} from "../../Root/Root.module.css";
 
 function LogoutButton({ logout, username, history }) {
   // onclick const
@@ -9,7 +15,11 @@ function LogoutButton({ logout, username, history }) {
   };
 
   // return
-  return <button onClick={onButtonClick}>Logout {username}</button>;
+  return (
+    <button onClick={onButtonClick} className={`${size} ${otherDesign}`}>
+      Logout {username}
+    </button>
+  );
 }
 
 export default withRouter(LogoutButton);

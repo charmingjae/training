@@ -51,16 +51,12 @@ const Root = () => {
     <Router>
       <header>
         <div className={divBackground}>
-          <Link to="/">
-            <button className={`${size} ${mainDesign}`}>Main</button>
+          <Link to="/" className={`${mainDesign}`}>
+            <button className={`${size} ${mainDesign}`}>Basket</button>
           </Link>
 
           {authenticated ? (
-            <LogoutButton
-              logout={doLogout}
-              username={user}
-              className={`${size} ${otherDesign}`}
-            />
+            <LogoutButton logout={doLogout} username={user} />
           ) : (
             <>
               <Link to="/register">
