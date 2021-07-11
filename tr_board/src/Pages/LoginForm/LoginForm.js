@@ -49,9 +49,11 @@ function LoginForm({ authenticated, login, location }) {
 
   return (
     <>
-      <h1>Login</h1>
-      <LoginInput setID={setID} setPW={setPW} />
-      <button onClick={onButtonClick}>Login</button>
+      <div>
+        <h1>Login</h1>
+        <LoginInput setID={setID} setPW={setPW} />
+        <button onClick={onButtonClick}>Login</button>
+      </div>
     </>
   );
 }
