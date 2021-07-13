@@ -3,12 +3,7 @@ import { Link, Route, Switch, BrowserRouter as Router } from "react-router-dom";
 import { hot } from "react-hot-loader";
 
 // import css
-import {
-  size,
-  otherDesign,
-  mainDesign,
-  divBackground,
-} from "./Root.module.css";
+import { size, otherDesign, mainDesign } from "./Root.module.css";
 // import component
 import { LogoutButton } from "../Components";
 // import pages
@@ -50,7 +45,7 @@ const Root = () => {
   return (
     <Router>
       <header>
-        <div className={divBackground}>
+        <div>
           <Link to="/" className={`${mainDesign}`}>
             <button className={`${size} ${mainDesign}`}>Basket</button>
           </Link>
@@ -71,7 +66,14 @@ const Root = () => {
       </header>
       <main>
         <Switch>
-          <Route exact path="/" component={Main} />
+          {/* <Route exact path="/" component={Main} /> */}
+          <Route
+            exact
+            path="/"
+            render={(props) => (
+              <Main authenticated={authenticated} {...props} />
+            )}
+          />
           <Route
             path="/login"
             render={(props) => (

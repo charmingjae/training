@@ -12,8 +12,10 @@ app.use(bodyParser.json());
 
 // Method
 app.get("/api/dd", route);
+app.get("/api/getumbcnt", route);
 app.post("/api/login", route);
 app.post("/api/register", route);
+app.post("/api/dorent", route);
 
 // When start server
 app.listen(port, () => {

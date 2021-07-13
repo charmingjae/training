@@ -103,4 +103,18 @@ router.post("/api/register", (req, res) => {
   })();
 });
 
+router.get("/api/getumbcnt", (req, res) => {
+  const getUmbCnt = "SELECT etc FROM umbInfo";
+  db.query(getUmbCnt, (err, result) => {
+    res.send({ result: "success", umbCnt: result[0]["etc"] });
+  });
+});
+
+router.post("/api/dorent", (req, res) => {
+  const rentUmb = "UPDATE umbInfo SET etc = etc - 1";
+  db.query(rentUmb, (err, result) => {
+    res.send({ result: "success" });
+  });
+});
+
 module.exports = router;
