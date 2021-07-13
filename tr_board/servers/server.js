@@ -11,11 +11,14 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Method
+// get
 app.get("/api/dd", route);
 app.get("/api/getumbcnt", route);
+// post
 app.post("/api/login", route);
 app.post("/api/register", route);
 app.post("/api/dorent", route);
+app.post("/api/doCheckIsRent", route);
 
 // When start server
 app.listen(port, () => {

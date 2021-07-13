@@ -111,9 +111,36 @@ router.get("/api/getumbcnt", (req, res) => {
 });
 
 router.post("/api/dorent", (req, res) => {
-  const rentUmb = "UPDATE umbInfo SET etc = etc - 1";
-  db.query(rentUmb, (err, result) => {
-    res.send({ result: "success" });
+  const userName = req.body["user"];
+  const qryRentUmb = "UPDATE umbInfo SET etc = etc - 1";
+  const qryAddRentList =
+    "INSERT INTO rentList(userName, returnDate) VALUES(?, DATE_ADD(CURRENT_TIMESTAMP, INTERVAL 5 DAY))";
+  db.query(qryRentUmb, (err, result) => {
+    if (!err) {
+      db.query(qryAddRentList, [userName], (err, result) => {
+        if (err) {
+          console.log(err);
+        } else {
+          res.send({ result: "success" });
+        }
+      });
+    }
+  });
+});
+
+router.post("/api/doCheckIsRent", (req, res) => {
+  const userName = req.body["user"];
+  const qryCheckIsRent = "SELECT COUNT(*) FROM rentList WHERE userName = ?";
+  db.query(qryCheckIsRent, [userName], (err, result) => {
+    if (!err) {
+      if (result[0]["COUNT(*)"] >= 1) {
+        res.send({ result: "success", isRent: "true" });
+      } else {
+        res.send({ result: "success", isRent: "false" });
+      }
+    } else {
+      console.log(err);
+    }
   });
 });
 

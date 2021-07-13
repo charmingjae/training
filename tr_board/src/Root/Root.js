@@ -71,7 +71,7 @@ const Root = () => {
             exact
             path="/"
             render={(props) => (
-              <Main authenticated={authenticated} {...props} />
+              <Main authenticated={authenticated} user={user} {...props} />
             )}
           />
           <Route
