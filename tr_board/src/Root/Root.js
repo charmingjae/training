@@ -5,9 +5,9 @@ import { hot } from "react-hot-loader";
 // import css
 import { size, otherDesign, mainDesign } from "./Root.module.css";
 // import component
-import { LogoutButton } from "../Components";
+import { LogoutButton, MyinfoButton } from "../Components";
 // import pages
-import { LoginForm, Main, RegisterForm } from "../Pages";
+import { LoginForm, Main, RegisterForm, UserInfo } from "../Pages";
 // import function
 import { signIn } from "../Function";
 import { signUp } from "../Function";
@@ -51,7 +51,12 @@ const Root = () => {
           </Link>
 
           {authenticated ? (
-            <LogoutButton logout={doLogout} username={user} />
+            <>
+              <LogoutButton logout={doLogout} username={user} />
+              <Link to="/userinfo">
+                <MyinfoButton username={user} />
+              </Link>
+            </>
           ) : (
             <>
               <Link to="/register">
@@ -93,6 +98,10 @@ const Root = () => {
                 {...props}
               />
             )}
+          />
+          <Route
+            path="/userinfo"
+            render={(props) => <UserInfo user={user} {...props} />}
           />
         </Switch>
       </main>

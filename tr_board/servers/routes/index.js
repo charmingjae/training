@@ -144,4 +144,21 @@ router.post("/api/doCheckIsRent", (req, res) => {
   });
 });
 
+router.post("/api/doRentInfo", (req, res) => {
+  const userName = req.body["user"];
+  const qryGetRentInfo =
+    "SELECT rentDate, returnDate FROM rentList WHERE userName = ? ";
+  db.query(qryGetRentInfo, [userName], (err, result) => {
+    if (!err) {
+      res.send({
+        result: "success",
+        rentDate: result[0]["rentDate"],
+        returnDate: result[0]["returnDate"],
+      });
+    } else {
+      console.log(err);
+    }
+  });
+});
+
 module.exports = router;
