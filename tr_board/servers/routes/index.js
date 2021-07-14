@@ -19,8 +19,6 @@ router.get("/api/dd", (req, res) => {
     // console.log("HelloWorld");
   });
 });
-
-// [SignIn.js] Do login router
 router.post("/api/login", (req, res) => {
   const userID = req.body.userID;
   const userPW = req.body.userPW;
@@ -64,8 +62,6 @@ router.post("/api/login", (req, res) => {
     }
   })();
 });
-
-// [SignUp.js] Do register router
 router.post("/api/register", (req, res) => {
   const userID = req.body.userID;
   var userPW = req.body.userPW;
@@ -107,14 +103,12 @@ router.post("/api/register", (req, res) => {
     }
   })();
 });
-
 router.get("/api/getumbcnt", (req, res) => {
   const getUmbCnt = "SELECT etc FROM umbInfo";
   db.query(getUmbCnt, (err, result) => {
     res.send({ result: "success", umbCnt: result[0]["etc"] });
   });
 });
-
 router.post("/api/dorent", (req, res) => {
   const userName = req.body["user"];
   const qryRentUmb = "UPDATE umbInfo SET etc = etc - 1";
@@ -132,7 +126,6 @@ router.post("/api/dorent", (req, res) => {
     }
   });
 });
-
 router.post("/api/doCheckIsRent", (req, res) => {
   const userName = req.body["user"];
   const qryCheckIsRent = "SELECT COUNT(*) FROM rentList WHERE userName = ?";
@@ -148,7 +141,6 @@ router.post("/api/doCheckIsRent", (req, res) => {
     }
   });
 });
-
 router.post("/api/doRentInfo", (req, res) => {
   const userName = req.body["user"];
   const qryGetRentInfo =
