@@ -1,11 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import {
-  size,
-  otherDesign,
-  mainDesign,
-  divBackground,
-} from "../../Root/Root.module.css";
+import { size, otherDesign } from "../../Root/Root.module.css";
 
 function MyinfoButton({ username, history }) {
   // return

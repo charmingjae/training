@@ -45,7 +45,7 @@ export function signIn({ userID, userPW }) {
 
   var user = function1().then((response) => {
     console.log("[this user] : ", response);
-    return response.userID;
+    return response;
   });
 
   return user;

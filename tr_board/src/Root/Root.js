@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, Route, Switch, BrowserRouter as Router } from "react-router-dom";
 import { hot } from "react-hot-loader";
 
 // import css
 import { size, otherDesign, mainDesign } from "./Root.module.css";
 // import component
-import { LogoutButton, MyinfoButton } from "../Components";
+import { LogoutButton, MyinfoButton, AdminButton } from "../Components";
 // import pages
 import { LoginForm, Main, RegisterForm, UserInfo } from "../Pages";
 // import function
@@ -15,6 +15,7 @@ import { signUp } from "../Function";
 const Root = () => {
   // init user const
   const [user, setUser] = useState(null);
+  const [userAuth, setUserAuth] = useState(null);
   // init check login
   const authenticated = user != null;
   // Login Function
@@ -23,14 +24,14 @@ const Root = () => {
     if (getSigninResult === undefined) {
       return undefined;
     } else {
-      setUser(getSigninResult);
+      setUser(getSigninResult.userID);
+      setUserAuth(getSigninResult.userAuth);
       return true;
     }
   };
   // Register Function
   const doRegister = async ({ userID, userPW, userPhone }) => {
     var getSignupResult = await signUp({ userID, userPW, userPhone });
-    console.log("get registerresult : ", getSignupResult);
     if (getSignupResult === undefined) {
       return undefined;
     } else {
@@ -39,7 +40,10 @@ const Root = () => {
     }
   };
   // Logout Function
-  const doLogout = () => setUser(null);
+  const doLogout = () => {
+    setUser(null);
+    setUserAuth(null);
+  };
 
   // return
   return (
@@ -56,6 +60,13 @@ const Root = () => {
               <Link to="/userinfo">
                 <MyinfoButton username={user} />
               </Link>
+              {userAuth === "admin" ? (
+                <Link to="/admin">
+                  <AdminButton />
+                </Link>
+              ) : (
+                <></>
+              )}
             </>
           ) : (
             <>

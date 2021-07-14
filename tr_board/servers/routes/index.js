@@ -28,7 +28,6 @@ router.post("/api/login", (req, res) => {
   function saltPassword(userPW) {
     return new Promise(function (resolve, reject) {
       crypto.pbkdf2(userPW, salt, 100000, 64, "sha512", (err, key) => {
-        console.log(key.toString("base64"));
         resolve(key.toString("base64"));
       });
     });
@@ -42,13 +41,22 @@ router.post("/api/login", (req, res) => {
   (async () => {
     try {
       const getSaltedPW = await handler();
-      const sql = "SELECT COUNT(*) FROM member WHERE userID=? AND userPW =?";
+      const sql =
+        "SELECT COUNT(*), ANY_VALUE(auth) FROM member WHERE userID=? AND userPW =?";
       db.query(sql, [userID, getSaltedPW], (err, result) => {
-        console.log(result[0]["COUNT(*)"]);
-        if (result[0]["COUNT(*)"] >= 1) {
-          res.send({ result: "success", userID: userID });
+        if (err) {
+          console.log(err);
         } else {
-          res.send({ result: "failed" });
+          // console.log(result[0]["COUNT(*)"]);
+          if (result[0]["COUNT(*)"] >= 1) {
+            res.send({
+              result: "success",
+              userID: userID,
+              userAuth: result[0]["ANY_VALUE(auth)"],
+            });
+          } else {
+            res.send({ result: "failed" });
+          }
         }
       });
     } catch (error) {
@@ -67,7 +75,6 @@ router.post("/api/register", (req, res) => {
     return new Promise(function (resolve, reject) {
       crypto.randomBytes(64, (err, buf) => {
         crypto.pbkdf2(userPW, salt, 100000, 64, "sha512", (err, key) => {
-          console.log(key.toString("base64"));
           resolve(key.toString("base64"));
         });
       });
@@ -89,10 +96,8 @@ router.post("/api/register", (req, res) => {
           console.log(err);
         } else {
           if (result.affectedRows >= 1) {
-            console.log("REGISTER SUCCESS");
             res.send({ result: "success", userID: userID });
           } else {
-            console.log("REGISTER failed");
             res.send({ result: "failed" });
           }
         }
