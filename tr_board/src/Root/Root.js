@@ -7,7 +7,7 @@ import { size, otherDesign, mainDesign } from "./Root.module.css";
 // import component
 import { LogoutButton, MyinfoButton, AdminButton } from "../Components";
 // import pages
-import { LoginForm, Main, RegisterForm, UserInfo } from "../Pages";
+import { LoginForm, Main, RegisterForm, UserInfo, Admin } from "../Pages";
 // import function
 import { signIn } from "../Function";
 import { signUp } from "../Function";
@@ -113,6 +113,10 @@ const Root = () => {
           <Route
             path="/userinfo"
             render={(props) => <UserInfo user={user} {...props} />}
+          />
+          <Route
+            path="/admin"
+            render={(props) => <Admin user={user} {...props} />}
           />
         </Switch>
       </main>

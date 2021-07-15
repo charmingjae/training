@@ -157,5 +157,19 @@ router.post("/api/doRentInfo", (req, res) => {
     }
   });
 });
+router.post("/api/doSetUmb", (req, res) => {
+  const umbCount = req.body["cntUmbrella"];
+  const qrySetUmbCount = "UPDATE umbInfo SET etc=? WHERE idx=1";
+  db.query(qrySetUmbCount, [umbCount], (err, result) => {
+    if (!err) {
+      console.log(result);
+      res.send({
+        result: "success",
+      });
+    } else {
+      console.log(err);
+    }
+  });
+});
 
 module.exports = router;

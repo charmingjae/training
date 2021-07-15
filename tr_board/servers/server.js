@@ -20,6 +20,7 @@ app.post("/api/register", route);
 app.post("/api/dorent", route);
 app.post("/api/doCheckIsRent", route);
 app.post("/api/doRentInfo", route);
+app.post("/api/doSetUmb", route);
 
 // When start server
 app.listen(port, () => {
