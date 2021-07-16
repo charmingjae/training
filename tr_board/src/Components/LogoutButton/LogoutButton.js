@@ -17,7 +17,7 @@ function LogoutButton({ logout, username, history }) {
   // return
   return (
     <button onClick={onButtonClick} className={`${size} ${otherDesign}`}>
-      Logout {username}
+      Logout
     </button>
   );
 }

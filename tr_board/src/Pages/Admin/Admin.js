@@ -7,7 +7,7 @@ import {
 } from "./Admin.module.css";
 import { hot } from "react-hot-loader";
 import { AdminHeader } from "../../Components";
-import { SetUmbrellaCount } from "../../Pages";
+import { SetUmbrellaCount, RentalList } from "../../Pages";
 
 function Admin() {
   return (
@@ -19,8 +19,12 @@ function Admin() {
         <div className={`${divWrapContents}`}>
           <Switch>
             <Route
-              path={["/admin", "/setUmbrellaCount"]}
+              path={["/admin", "/setting/umbrellacount"]}
               render={(props) => <SetUmbrellaCount {...props} />}
+            />
+            <Route
+              path="/rentallist"
+              render={(props) => <RentalList {...props} />}
             />
           </Switch>
         </div>

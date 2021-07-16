@@ -13,7 +13,7 @@ function SetUmbrellaCount() {
       const getSetResult = await setUmbCount({ cntUmbrella });
       if (getSetResult.result === "success") {
         setCntUmbrella();
-        alert("설정 완료");
+        alert("수정 완료");
       } else {
         alert("오류 발생");
       }

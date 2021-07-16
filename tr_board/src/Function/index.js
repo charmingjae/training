@@ -5,3 +5,5 @@ export { rentUmb } from "./RentUmb/RentUmb";
 export { getRentChk } from "./GetRentCheck/GetRentCheck";
 export { getRentInfo } from "./GetRentInfo/GetRentInfo";
 export { setUmbCount } from "./SetUmbCount/SetUmbCount";
+export { getRentList } from "./GetRentList/GetRentList";
+export { returnUmb } from "./ReturnUmb/ReturnUmb";

@@ -172,4 +172,20 @@ router.post("/api/doSetUmb", (req, res) => {
   });
 });
 
+router.get("/api/getrentlist", (req, res) => {
+  const qryGetRentList = "SELECT userName, rentDate, returnDate FROM rentList";
+  console.log("QUERY START");
+  db.query(qryGetRentList, (err, result) => {
+    if (!err) {
+      res.send(result);
+    } else {
+      console.log(err);
+    }
+  });
+});
+
+router.post("/api/returnumb", (req, res) => {
+  console.log("REQ BODY : ", req.body);
+});
+
 module.exports = router;

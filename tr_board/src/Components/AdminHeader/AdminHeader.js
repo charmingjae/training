@@ -6,14 +6,12 @@ import { btnAdmin } from "./AdminHeader.module.css";
 function AdminHeader() {
   return (
     <>
-      <Link to="/setUmbrellaCount">
+      <Link to="/setting/umbrellacount">
         <button className={`${btnAdmin}`}>Set Count</button>
       </Link>
-      <Link to="menu2">
-        <button className={`${btnAdmin}`}>Menu2</button>
+      <Link to="/rentallist">
+        <button className={`${btnAdmin}`}>Rental List</button>
       </Link>
-      <button className={`${btnAdmin}`}>Menu3</button>
-      <button className={`${btnAdmin}`}>Menu4</button>
     </>
   );
 }

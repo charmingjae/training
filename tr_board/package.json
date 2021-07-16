@@ -28,18 +28,25 @@
         "webpack-dev-server": "^3.11.2"
     },
     "dependencies": {
+        "ag-grid-community": "^25.3.0",
+        "ag-grid-enterprise": "^25.3.0",
+        "ag-grid-react": "^25.3.0",
         "axios": "^0.21.1",
         "babel-polyfill": "^6.26.0",
         "bcrypt": "^5.0.0",
         "body-parser": "^1.19.0",
         "cors": "^2.8.5",
+        "crypto-browserify": "^3.12.0",
         "express": "^4.17.1",
         "http-proxy-middleware": "^0.19.1",
         "mysql": "^2.18.1",
         "mysql2": "^2.2.5",
+        "namor": "^2.0.3",
         "npm-run-all": "^4.1.5",
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
-        "react-router-dom": "^5.2.0"
+        "react-router-dom": "^5.2.0",
+        "react-table": "^7.7.0",
+        "styled-components": "^5.3.0"
     }
 }
