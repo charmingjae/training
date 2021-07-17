@@ -53,9 +53,10 @@ const IndeterminateCheckbox = React.forwardRef(
   }
 );
 
-function Table({ columns, data: data }) {
+function Table({ columns, data: data, doSetStateData }) {
   let fruit = [];
   const [selData, setSelData] = useState();
+
   const [funcState, setFuncState] = useState();
 
   const onButtonClick = () => {
@@ -68,6 +69,10 @@ function Table({ columns, data: data }) {
       alert("삭제하시겠습니까?" + selData);
       console.log(selData);
       const getResult = await returnUmb({ selData });
+      if (getResult.result === "success") {
+        doSetStateData();
+        alert("삭제 완료");
+      }
     } catch (e) {
       console.log(e);
     }
@@ -167,10 +172,15 @@ function Table({ columns, data: data }) {
   );
 }
 
-// const data = React.useMemo(() => doGetRentList(), []);
-
 function RentalList() {
   const [data, setData] = useState();
+  const [stateData, setStateData] = useState(0);
+
+  const doSetStateData = () => {
+    let chngStateData = stateData;
+
+    setStateData(++chngStateData);
+  };
 
   const doGetRentList = async () => {
     try {
@@ -183,7 +193,7 @@ function RentalList() {
 
   useEffect(() => {
     doGetRentList();
-  }, []);
+  }, [stateData]);
 
   const columns = React.useMemo(
     () => [
@@ -193,6 +203,10 @@ function RentalList() {
           {
             Header: "Name",
             accessor: "userName",
+          },
+          {
+            Header: "Student Number",
+            accessor: "studentNum",
           },
         ],
       },
@@ -215,7 +229,9 @@ function RentalList() {
 
   return (
     <Styles>
-      {data !== undefined && <Table columns={columns} data={data} />}
+      {data !== undefined && (
+        <Table columns={columns} data={data} doSetStateData={doSetStateData} />
+      )}
     </Styles>
   );
 }

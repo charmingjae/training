@@ -6,7 +6,7 @@
     "scripts": {
         "start": "npm-run-all --parallel start:**",
         "start:client": "webpack serve --progress",
-        "start:server": "node ./servers/server.js",
+        "start:server": "node ./servers/server.js --hot --inline",
         "build": "react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject"

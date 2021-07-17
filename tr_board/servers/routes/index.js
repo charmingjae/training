@@ -5,6 +5,7 @@ const { db, salt } = require("../../config/db");
 const express = require("express");
 const router = express.Router();
 const crypto = require("crypto");
+const hot = require("react-hot-loader");
 
 // * How to use Database
 router.get("/api/dd", (req, res) => {
@@ -19,6 +20,7 @@ router.get("/api/dd", (req, res) => {
     // console.log("HelloWorld");
   });
 });
+
 router.post("/api/login", (req, res) => {
   const userID = req.body.userID;
   const userPW = req.body.userPW;
@@ -62,6 +64,7 @@ router.post("/api/login", (req, res) => {
     }
   })();
 });
+
 router.post("/api/register", (req, res) => {
   console.log(req.body);
   const userID = req.body.userID;
@@ -110,6 +113,7 @@ router.post("/api/register", (req, res) => {
     }
   })();
 });
+
 router.get("/api/getumbcnt", (req, res) => {
   const getUmbCnt = "SELECT etc FROM umbInfo";
   db.query(getUmbCnt, (err, result) => {
@@ -133,6 +137,7 @@ router.post("/api/dorent", (req, res) => {
     }
   });
 });
+
 router.post("/api/doCheckIsRent", (req, res) => {
   const userName = req.body["user"];
   const qryCheckIsRent = "SELECT COUNT(*) FROM rentList WHERE userName = ?";
@@ -148,6 +153,7 @@ router.post("/api/doCheckIsRent", (req, res) => {
     }
   });
 });
+
 router.post("/api/doRentInfo", (req, res) => {
   const userName = req.body["user"];
   const qryGetRentInfo =
@@ -164,6 +170,7 @@ router.post("/api/doRentInfo", (req, res) => {
     }
   });
 });
+
 router.post("/api/doSetUmb", (req, res) => {
   const umbCount = req.body["cntUmbrella"];
   const qrySetUmbCount = "UPDATE umbInfo SET etc=? WHERE idx=1";
@@ -182,10 +189,8 @@ router.post("/api/doSetUmb", (req, res) => {
 router.get("/api/getrentlist", (req, res) => {
   const qryGetRentList =
     "SELECT userName, DATE_FORMAT(rentDate,'%Y-%m-%d') as rentDate, DATE_FORMAT(returnDate,'%Y-%m-%d') as returnDate, studentNum FROM rentList";
-  console.log("QUERY START");
   db.query(qryGetRentList, (err, result) => {
     if (!err) {
-      console.log(result);
       res.send(result);
     } else {
       console.log(err);
@@ -194,7 +199,20 @@ router.get("/api/getrentlist", (req, res) => {
 });
 
 router.post("/api/returnumb", (req, res) => {
-  console.log("REQ BODY : ", req.body);
+  const element = req.body.selData;
+  let arrStudentNum = [];
+  element.forEach((element) => {
+    arrStudentNum.push(element.studentNum);
+  });
+
+  const qryReturnUmb = "DELETE FROM rentList where studentNum IN (?)";
+  db.query(qryReturnUmb, [arrStudentNum], (err, result) => {
+    if (!err) {
+      res.send({ result: "success" });
+    } else {
+      console.log(err);
+    }
+  });
 });
 
 module.exports = router;
