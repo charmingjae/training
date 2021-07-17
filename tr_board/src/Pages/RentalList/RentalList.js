@@ -67,7 +67,6 @@ function Table({ columns, data: data, doSetStateData }) {
   const doDeleteData = async () => {
     try {
       alert("삭제하시겠습니까?" + selData);
-      console.log(selData);
       const getResult = await returnUmb({ selData });
       if (getResult.result === "success") {
         doSetStateData();

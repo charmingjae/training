@@ -13,7 +13,6 @@ export function returnUmb({ selData }) {
   }
 
   const resVal = doReturnUmb().then((response) => {
-    console.log(response);
     return response;
   });
 
