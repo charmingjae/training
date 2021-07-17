@@ -30,8 +30,13 @@ const Root = () => {
     }
   };
   // Register Function
-  const doRegister = async ({ userID, userPW, userPhone }) => {
-    var getSignupResult = await signUp({ userID, userPW, userPhone });
+  const doRegister = async ({ userID, userPW, userPhone, studentNum }) => {
+    var getSignupResult = await signUp({
+      userID,
+      userPW,
+      userPhone,
+      studentNum,
+    });
     if (getSignupResult === undefined) {
       return undefined;
     } else {

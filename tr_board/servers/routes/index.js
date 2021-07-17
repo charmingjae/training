@@ -63,9 +63,12 @@ router.post("/api/login", (req, res) => {
   })();
 });
 router.post("/api/register", (req, res) => {
+  console.log(req.body);
   const userID = req.body.userID;
+  const studentNum = req.body.studentNum;
   var userPW = req.body.userPW;
   const userPhone = req.body.userPhone;
+  console.log(userID, studentNum, userPW, userPhone);
 
   function saltPassword(userPW) {
     return new Promise(function (resolve, reject) {
@@ -86,18 +89,22 @@ router.post("/api/register", (req, res) => {
     try {
       const getSaltedPW = await handler();
       const dbQuery =
-        "INSERT INTO member(userID, userPW, userPhone) VALUES(?,?,?)";
-      db.query(dbQuery, [userID, getSaltedPW, userPhone], (err, result) => {
-        if (err) {
-          console.log(err);
-        } else {
-          if (result.affectedRows >= 1) {
-            res.send({ result: "success", userID: userID });
+        "INSERT INTO member(userID, userPW, userPhone, studentNum) VALUES(?,?,?,?)";
+      db.query(
+        dbQuery,
+        [userID, getSaltedPW, userPhone, studentNum],
+        (err, result) => {
+          if (err) {
+            console.log(err);
           } else {
-            res.send({ result: "failed" });
+            if (result.affectedRows >= 1) {
+              res.send({ result: "success", userID: userID });
+            } else {
+              res.send({ result: "failed" });
+            }
           }
         }
-      });
+      );
     } catch (error) {
       console.log(error);
     }
@@ -113,10 +120,10 @@ router.post("/api/dorent", (req, res) => {
   const userName = req.body["user"];
   const qryRentUmb = "UPDATE umbInfo SET etc = etc - 1";
   const qryAddRentList =
-    "INSERT INTO rentList(userName, returnDate) VALUES(?, DATE_ADD(CURRENT_TIMESTAMP, INTERVAL 5 DAY))";
+    "INSERT INTO rentList(userName, returnDate, studentNum) VALUES(?, DATE_ADD(CURRENT_TIMESTAMP, INTERVAL 5 DAY),(SELECT studentNum FROM member where userID = ?))";
   db.query(qryRentUmb, (err, result) => {
     if (!err) {
-      db.query(qryAddRentList, [userName], (err, result) => {
+      db.query(qryAddRentList, [userName, userName], (err, result) => {
         if (err) {
           console.log(err);
         } else {
@@ -174,7 +181,7 @@ router.post("/api/doSetUmb", (req, res) => {
 
 router.get("/api/getrentlist", (req, res) => {
   const qryGetRentList =
-    "SELECT userName, DATE_FORMAT(rentDate,'%Y-%m-%d') as rentDate, DATE_FORMAT(returnDate,'%Y-%m-%d') as returnDate FROM rentList";
+    "SELECT userName, DATE_FORMAT(rentDate,'%Y-%m-%d') as rentDate, DATE_FORMAT(returnDate,'%Y-%m-%d') as returnDate, studentNum FROM rentList";
   console.log("QUERY START");
   db.query(qryGetRentList, (err, result) => {
     if (!err) {

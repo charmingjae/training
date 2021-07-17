@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export function signUp({ userID, userPW, userPhone }) {
+export function signUp({ userID, userPW, userPhone, studentNum }) {
   // /api/register에 데이터 보내고 응답 받아오는 함수
   function chkSignUp() {
     return new Promise(function (resolve, reject) {
@@ -9,6 +9,7 @@ export function signUp({ userID, userPW, userPhone }) {
           userID: userID,
           userPW: userPW,
           userPhone: userPhone,
+          studentNum: studentNum,
         })
         .then((response) => resolve(response.data));
     });

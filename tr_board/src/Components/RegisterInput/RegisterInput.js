@@ -1,12 +1,18 @@
 import React from "react";
 
-function RegisterInput({ setID, setPW, setPhone }) {
+function RegisterInput({ setID, setPW, setPhone, setStuNum }) {
   return (
     <>
       <input
         onChange={({ target: { value } }) => setID(value)}
         type="text"
         placeholder="ID"
+      />
+      <br />
+      <input
+        onChange={({ target: { value } }) => setStuNum(value)}
+        type="text"
+        placeholder="STUDENT NUMBER"
       />
       <br />
       <input

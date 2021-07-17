@@ -6,13 +6,19 @@ import { RegisterInput } from "../../Components";
 function RegisterForm({ authenticated, register, location }) {
   //
   const [userID, setUserID] = useState("");
+  const [studentNum, setStudentNum] = useState("");
   const [userPW, setUserPW] = useState("");
   const [userPhone, setUserPhone] = useState("");
   const { from } = location.state || { from: { pathname: "/" } };
+
   // Pass set userID, userPW function
   // Don't use {value}
   const setID = (value) => {
     setUserID(value);
+  };
+
+  const setStuNum = (value) => {
+    setStudentNum(value);
   };
 
   const setPW = (value) => {
@@ -27,7 +33,7 @@ function RegisterForm({ authenticated, register, location }) {
     try {
       // * 회원가입 폼 인풋 빈 값 체크
       // - userID, userPW, userPhone 값은 <RegisterInput>에 값을 입력할 때 변경 됨
-      if (userID == "" || userPW == "" || userPhone == "") {
+      if (userID == "" || userPW == "" || userPhone == "" || studentNum == "") {
         alert("Check your data");
       } else {
         // * 빈 값이 없을 때
@@ -40,7 +46,12 @@ function RegisterForm({ authenticated, register, location }) {
         // * 순서
         // Root.js의 doRegister() 거치고 RegisterForm의 register() 수행
         // 클릭 -> register() -> doRegister() -> signUp() -> doRegister() -> register()
-        var getRegisterResult = await register({ userID, userPW, userPhone });
+        var getRegisterResult = await register({
+          userID,
+          userPW,
+          userPhone,
+          studentNum,
+        });
         if (getRegisterResult === undefined) throw new Error();
       }
     } catch (e) {
@@ -48,6 +59,7 @@ function RegisterForm({ authenticated, register, location }) {
       setUserID("");
       setUserPW("");
       setUserPhone("");
+      setStudentNum("");
     }
   };
 
@@ -59,7 +71,12 @@ function RegisterForm({ authenticated, register, location }) {
   return (
     <div>
       <h1>Register</h1>
-      <RegisterInput setID={setID} setPW={setPW} setPhone={setPhone} />
+      <RegisterInput
+        setID={setID}
+        setPW={setPW}
+        setPhone={setPhone}
+        setStuNum={setStuNum}
+      />
       <button onClick={onButtonClick}>Register</button>
     </div>
   );
