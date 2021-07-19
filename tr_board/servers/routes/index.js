@@ -294,4 +294,17 @@ router.get("/api/getoverduelist", (req, res) => {
   });
 });
 
+router.post("/api/getfilterapplylist", (req, res) => {
+  const stuNum = req.body.stuNum;
+  const qryGetFilterApplyList =
+    "SELECT userName, studentNum FROM applyList WHERE studentNum = ?";
+  db.query(qryGetFilterApplyList, [stuNum], (err, result) => {
+    if (!err) {
+      res.send(result);
+    } else {
+      console.log(err);
+    }
+  });
+});
+
 module.exports = router;

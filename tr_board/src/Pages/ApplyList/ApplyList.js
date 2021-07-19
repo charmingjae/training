@@ -2,7 +2,12 @@ import React, { useState, useEffect, useMemo } from "react";
 import styled from "styled-components";
 import { hot } from "react-hot-loader";
 import { useTable, useRowSelect } from "react-table";
-import { getApplyList, returnApply, rentUmb } from "../../Function";
+import {
+  getApplyList,
+  returnApply,
+  rentUmb,
+  getFilterApplyList,
+} from "../../Function";
 import { ShowModal } from "../../Components";
 import { noData } from "./ApplyList.module.css";
 
@@ -232,6 +237,11 @@ function Table({ columns, data: data, doSetStateData }) {
 function ApplyList() {
   const [data, setData] = useState();
   const [stateData, setStateData] = useState(0);
+  const [stuNum, setStuNum] = useState();
+
+  const doSetStuNum = (value) => {
+    setStuNum(value);
+  };
 
   const doSetStateData = () => {
     let chngStateData = stateData;
@@ -242,6 +252,21 @@ function ApplyList() {
     try {
       const getList = await getApplyList();
       setData(getList);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const doFilterApplyList = async () => {
+    try {
+      if (stuNum === "" || stuNum === undefined) {
+        doGetApplyList();
+      } else {
+        const getFilterList = await getFilterApplyList({ stuNum });
+        setData(getFilterList);
+        doSetStuNum();
+        // doSetStateData();
+      }
     } catch (e) {
       console.log(e);
     }
@@ -269,10 +294,15 @@ function ApplyList() {
     ],
     []
   );
+  // ({ target: { value } }) => doSetStuNum(value)
 
   return (
     <Styles>
-      <input></input>
+      <input
+        onChange={({ target: { value } }) => doSetStuNum(value)}
+        value={stuNum || ""}
+      ></input>
+      <button onClick={doFilterApplyList}>검색</button>
       {data !== undefined && (
         <Table columns={columns} data={data} doSetStateData={doSetStateData} />
       )}

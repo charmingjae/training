@@ -28,6 +28,7 @@ app.post("/api/doSetUmb", route);
 app.post("/api/returnumb", route);
 app.post("/api/returnapply", route);
 app.post("/api/doCheckIsApply", route);
+app.post("/api/getfilterapplylist", route);
 
 // When start server
 app.listen(port, () => {

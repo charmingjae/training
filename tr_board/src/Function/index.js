@@ -12,3 +12,4 @@ export { applyUmb } from "./ApplyUmb/ApplyUmb";
 export { returnApply } from "./ReturnApply/ReturnApply";
 export { getApplyChk } from "./GetApplyCheck/GetApplyCheck";
 export { getOverdueList } from "./GetOverdueList/GetOverdueList";
+export { getFilterApplyList } from "./GetFilterApplyList/GetFilterApplyList";
