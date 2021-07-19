@@ -177,6 +177,22 @@ router.post("/api/doCheckIsRent", (req, res) => {
   });
 });
 
+router.post("/api/doCheckIsApply", (req, res) => {
+  const userName = req.body["user"];
+  const qryCheckIsRent = "SELECT COUNT(*) FROM applyList WHERE userName = ?";
+  db.query(qryCheckIsRent, [userName], (err, result) => {
+    if (!err) {
+      if (result[0]["COUNT(*)"] >= 1) {
+        res.send({ result: "success", isApply: "true" });
+      } else {
+        res.send({ result: "success", isApply: "false" });
+      }
+    } else {
+      console.log(err);
+    }
+  });
+});
+
 router.post("/api/doRentInfo", (req, res) => {
   const userName = req.body["user"];
   const qryGetRentInfo =

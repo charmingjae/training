@@ -16,10 +16,6 @@ function LoginForm({ authenticated, login, location }) {
       var getLoginResult = await login({ userID, userPW });
       if (getLoginResult === undefined) throw new Error();
     } catch (e) {
-      // 원래 login() 부분에서 throw new Error() 발생 시
-      // 하단의 부분이 실행 되어야 하는데, throw new Error 하는 방법 찾지 못함
-      // 05.16 해결
-      // Loginform.js 21번째 라인 참고
       alert("로그인 정보를 확인하세요.");
       // setUserID("");
       setUserPW("");

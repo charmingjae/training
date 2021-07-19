@@ -10,3 +10,4 @@ export { returnUmb } from "./ReturnUmb/ReturnUmb";
 export { getApplyList } from "./GetApplyList/GetApplyList";
 export { applyUmb } from "./ApplyUmb/ApplyUmb";
 export { returnApply } from "./ReturnApply/ReturnApply";
+export { getApplyChk } from "./GetApplyCheck/GetApplyCheck";

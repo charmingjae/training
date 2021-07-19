@@ -10,7 +10,7 @@ import {
   contentCountUmb,
   buttonGetUmbrella,
 } from "./Main.module.css";
-import { getUmbCnt, getRentChk, applyUmb } from "../../Function";
+import { getUmbCnt, getRentChk, applyUmb, getApplyChk } from "../../Function";
 
 function Main({ authenticated, user }) {
   const [umbCnt, setUmbCnt] = useState();
@@ -34,7 +34,11 @@ function Main({ authenticated, user }) {
     }
     try {
       var getIsRent = await getRentChk({ user });
-      if (getIsRent == "true") {
+      var getIsApply = await getApplyChk({ user });
+      if (getIsApply == "true") {
+        alert("현재 대여 신청한 기록이 있습니다.");
+        return;
+      } else if (getIsRent == "true") {
         alert("현재 대여 중인 우산이 있습니다.");
         return;
       } else {
