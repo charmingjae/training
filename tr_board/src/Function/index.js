@@ -7,3 +7,6 @@ export { getRentInfo } from "./GetRentInfo/GetRentInfo";
 export { setUmbCount } from "./SetUmbCount/SetUmbCount";
 export { getRentList } from "./GetRentList/GetRentList";
 export { returnUmb } from "./ReturnUmb/ReturnUmb";
+export { getApplyList } from "./GetApplyList/GetApplyList";
+export { applyUmb } from "./ApplyUmb/ApplyUmb";
+export { returnApply } from "./ReturnApply/ReturnApply";

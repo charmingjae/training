@@ -9,6 +9,9 @@ function AdminHeader() {
       <Link to="/setting/umbrellacount">
         <button className={`${btnAdmin}`}>Set Count</button>
       </Link>
+      <Link to="/applylist">
+        <button className={`${btnAdmin}`}>Apply List</button>
+      </Link>
       <Link to="/rentallist">
         <button className={`${btnAdmin}`}>Rental List</button>
       </Link>

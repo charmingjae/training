@@ -120,11 +120,34 @@ router.get("/api/getumbcnt", (req, res) => {
     res.send({ result: "success", umbCnt: result[0]["etc"] });
   });
 });
+
 router.post("/api/dorent", (req, res) => {
+  const userName = req.body.selData[0]["userName"];
+  // const qryRentUmb = "UPDATE umbInfo SET etc = etc - 1";
+  const qryAddRentList =
+    "INSERT INTO rentList(userName, returnDate, studentNum) VALUES(?, DATE_ADD(CURRENT_TIMESTAMP, INTERVAL 5 DAY),(SELECT studentNum FROM member where userID = ?))";
+  const qryDeleteApplyList =
+    "DELETE FROM applyList WHERE studentNum = (SELECT studentNum FROM member WHERE userID=?) ";
+  db.query(qryAddRentList, [userName, userName], (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      db.query(qryDeleteApplyList, [userName], (err, result) => {
+        if (err) {
+          res.send({ result: "failed" });
+        } else {
+          res.send({ result: "success" });
+        }
+      });
+    }
+  });
+});
+
+router.post("/api/doapply", (req, res) => {
   const userName = req.body["user"];
   const qryRentUmb = "UPDATE umbInfo SET etc = etc - 1";
   const qryAddRentList =
-    "INSERT INTO rentList(userName, returnDate, studentNum) VALUES(?, DATE_ADD(CURRENT_TIMESTAMP, INTERVAL 5 DAY),(SELECT studentNum FROM member where userID = ?))";
+    "INSERT INTO applyList(userName, studentNum) VALUES(?,(SELECT studentNum FROM member where userID = ?))";
   db.query(qryRentUmb, (err, result) => {
     if (!err) {
       db.query(qryAddRentList, [userName, userName], (err, result) => {
@@ -206,6 +229,34 @@ router.post("/api/returnumb", (req, res) => {
   });
 
   const qryReturnUmb = "DELETE FROM rentList where studentNum IN (?)";
+  db.query(qryReturnUmb, [arrStudentNum], (err, result) => {
+    if (!err) {
+      res.send({ result: "success" });
+    } else {
+      console.log(err);
+    }
+  });
+});
+
+router.get("/api/getapplylist", (req, res) => {
+  const qryGetRentList = "SELECT userName, studentNum FROM applyList";
+  db.query(qryGetRentList, (err, result) => {
+    if (!err) {
+      res.send(result);
+    } else {
+      console.log(err);
+    }
+  });
+});
+
+router.post("/api/returnapply", (req, res) => {
+  const element = req.body.selData;
+  let arrStudentNum = [];
+  element.forEach((element) => {
+    arrStudentNum.push(element.studentNum);
+  });
+
+  const qryReturnUmb = "DELETE FROM applyList where studentNum IN (?)";
   db.query(qryReturnUmb, [arrStudentNum], (err, result) => {
     if (!err) {
       res.send({ result: "success" });

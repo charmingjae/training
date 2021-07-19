@@ -2,8 +2,8 @@ import React, { useState, useEffect, useMemo } from "react";
 import styled from "styled-components";
 import { hot } from "react-hot-loader";
 import { useTable, useRowSelect } from "react-table";
-import { getRentList, returnUmb } from "../../Function";
-import { ShowModal } from "../../Components/";
+import { getApplyList, returnApply, rentUmb } from "../../Function";
+import { ShowModal } from "../../Components";
 
 const Styles = styled.div`
   padding: 1rem;
@@ -67,6 +67,11 @@ function Table({ columns, data: data, doSetStateData }) {
     setFuncState("delete");
   };
 
+  const onButtonAcceptClick = () => {
+    setSelData(userData);
+    setFuncState("accept");
+  };
+
   const setModal = () => {
     setIsModalOpen(!isModalOpen);
   };
@@ -74,7 +79,7 @@ function Table({ columns, data: data, doSetStateData }) {
   const doDeleteData = async () => {
     try {
       alert("삭제하시겠습니까?");
-      const getResult = await returnUmb({ selData });
+      const getResult = await returnApply({ selData });
       if (getResult.result === "success") {
         doSetStateData();
         alert("삭제 완료");
@@ -84,9 +89,30 @@ function Table({ columns, data: data, doSetStateData }) {
     }
   };
 
+  const doAcceptData = async () => {
+    try {
+      alert("대여를 확인합니다.");
+      if (Object.keys(selectedRowIds).length > 1) {
+        alert("한 항목만 선택해주세요.");
+        return;
+      }
+      const getResult = await rentUmb({ selData });
+      if (getResult === "success") {
+        doSetStateData();
+        alert("처리 완료");
+      } else {
+        alert("오류 발생. 한 항목만 선택해주세요.");
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   useEffect(() => {
     if (funcState === "delete") {
       doDeleteData();
+    } else if (funcState === "accept") {
+      doAcceptData();
     }
   }, [selData, funcState]);
   // Use the state and functions returned from useTable to build your UI
@@ -177,13 +203,14 @@ function Table({ columns, data: data, doSetStateData }) {
         </code>
       </pre>
       <button onClick={onButtonDeleteClick}>Delete</button>
+      <button onClick={onButtonAcceptClick}>Accept</button>
       <button onClick={setModal}>Modal Test</button>
       <ShowModal setModal={setModal} isModalOpen={isModalOpen} />
     </>
   );
 }
 
-function RentalList() {
+function ApplyList() {
   const [data, setData] = useState();
   const [stateData, setStateData] = useState(0);
 
@@ -195,7 +222,7 @@ function RentalList() {
 
   const doGetRentList = async () => {
     try {
-      const getList = await getRentList();
+      const getList = await getApplyList();
       setData(getList);
     } catch (e) {
       console.log(e);
@@ -221,19 +248,6 @@ function RentalList() {
           },
         ],
       },
-      {
-        Header: "Rental Info",
-        columns: [
-          {
-            Header: "Rent Date",
-            accessor: "rentDate",
-          },
-          {
-            Header: "Return Date",
-            accessor: "returnDate",
-          },
-        ],
-      },
     ],
     []
   );
@@ -247,4 +261,4 @@ function RentalList() {
   );
 }
 
-export default hot(module)(RentalList);
+export default hot(module)(ApplyList);

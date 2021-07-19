@@ -10,7 +10,7 @@ import {
   contentCountUmb,
   buttonGetUmbrella,
 } from "./Main.module.css";
-import { getUmbCnt, rentUmb, getRentChk } from "../../Function";
+import { getUmbCnt, getRentChk, applyUmb } from "../../Function";
 
 function Main({ authenticated, user }) {
   const [umbCnt, setUmbCnt] = useState();
@@ -38,9 +38,9 @@ function Main({ authenticated, user }) {
         alert("현재 대여 중인 우산이 있습니다.");
         return;
       } else {
-        var getResult = await rentUmb({ user });
+        var getResult = await applyUmb({ user });
         if (getResult == "success") {
-          alert("대여가 완료되었습니다.");
+          alert("신청이 완료되었습니다.");
           doGetUmbCnt();
         }
       }
