@@ -2,9 +2,9 @@ import React, { useState, useEffect, useMemo } from "react";
 import styled from "styled-components";
 import { hot } from "react-hot-loader";
 import { useTable, useRowSelect } from "react-table";
-import { getApplyList, returnApply, rentUmb } from "../../Function";
+import { getOverdueList, returnUmb } from "../../Function";
 import { ShowModal } from "../../Components";
-import { noData } from "./ApplyList.module.css";
+import { noData } from "./OverdueList.module.css";
 
 const Styles = styled.div`
   padding: 1rem;
@@ -68,11 +68,6 @@ function Table({ columns, data: data, doSetStateData }) {
     setFuncState("delete");
   };
 
-  const onButtonAcceptClick = () => {
-    setSelData(userData);
-    setFuncState("accept");
-  };
-
   const setModal = () => {
     setIsModalOpen(!isModalOpen);
   };
@@ -80,7 +75,7 @@ function Table({ columns, data: data, doSetStateData }) {
   const doDeleteData = async () => {
     try {
       alert("삭제하시겠습니까?");
-      const getResult = await returnApply({ selData });
+      const getResult = await returnUmb({ selData });
       if (getResult.result === "success") {
         doSetStateData();
         alert("삭제 완료");
@@ -90,30 +85,9 @@ function Table({ columns, data: data, doSetStateData }) {
     }
   };
 
-  const doAcceptData = async () => {
-    try {
-      alert("대여를 확인합니다.");
-      if (Object.keys(selectedRowIds).length > 1) {
-        alert("한 항목만 선택해주세요.");
-        return;
-      }
-      const getResult = await rentUmb({ selData });
-      if (getResult === "success") {
-        doSetStateData();
-        alert("처리 완료");
-      } else {
-        alert("오류 발생. 한 항목만 선택해주세요.");
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
   useEffect(() => {
     if (funcState === "delete") {
       doDeleteData();
-    } else if (funcState === "accept") {
-      doAcceptData();
     }
   }, [selData, funcState]);
   // Use the state and functions returned from useTable to build your UI
@@ -184,21 +158,9 @@ function Table({ columns, data: data, doSetStateData }) {
             })
           ) : (
             <tr className={`${noData}`}>
-              <td colSpan="3">신청 내역이 없습니다.</td>
+              <td colSpan="5">연체 내역이 없습니다.</td>
             </tr>
           )}
-          {/* {rows.slice(0, 10).map((row, i) => {
-            prepareRow(row);
-            return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map((cell) => {
-                  return (
-                    <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
-                  );
-                })}
-              </tr>
-            );
-          })} */}
         </tbody>
       </table>
       <p>Selected Rows: {Object.keys(selectedRowIds).length}</p>
@@ -222,25 +184,25 @@ function Table({ columns, data: data, doSetStateData }) {
         </code>
       </pre>
       <button onClick={onButtonDeleteClick}>Delete</button>
-      <button onClick={onButtonAcceptClick}>Accept</button>
       <button onClick={setModal}>Modal Test</button>
       <ShowModal setModal={setModal} isModalOpen={isModalOpen} />
     </>
   );
 }
 
-function ApplyList() {
+function OverdueList() {
   const [data, setData] = useState();
   const [stateData, setStateData] = useState(0);
 
   const doSetStateData = () => {
     let chngStateData = stateData;
+
     setStateData(++chngStateData);
   };
 
-  const doGetApplyList = async () => {
+  const doGetOverdueList = async () => {
     try {
-      const getList = await getApplyList();
+      const getList = await getOverdueList();
       setData(getList);
     } catch (e) {
       console.log(e);
@@ -248,7 +210,7 @@ function ApplyList() {
   };
 
   useEffect(() => {
-    doGetApplyList();
+    doGetOverdueList();
   }, [stateData]);
 
   const columns = React.useMemo(
@@ -266,13 +228,25 @@ function ApplyList() {
           },
         ],
       },
+      {
+        Header: "Rental Info",
+        columns: [
+          {
+            Header: "Rent Date",
+            accessor: "rentDate",
+          },
+          {
+            Header: "Return Date",
+            accessor: "returnDate",
+          },
+        ],
+      },
     ],
     []
   );
 
   return (
     <Styles>
-      <input></input>
       {data !== undefined && (
         <Table columns={columns} data={data} doSetStateData={doSetStateData} />
       )}
@@ -280,4 +254,4 @@ function ApplyList() {
   );
 }
 
-export default hot(module)(ApplyList);
+export default hot(module)(OverdueList);

@@ -15,6 +15,9 @@ function AdminHeader() {
       <Link to="/rentallist">
         <button className={`${btnAdmin}`}>Rental List</button>
       </Link>
+      <Link to="/overduelist">
+        <button className={`${btnAdmin}`}>Overdue List</button>
+      </Link>
     </>
   );
 }

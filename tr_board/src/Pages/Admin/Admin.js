@@ -7,7 +7,12 @@ import {
 } from "./Admin.module.css";
 import { hot } from "react-hot-loader";
 import { AdminHeader } from "../../Components";
-import { SetUmbrellaCount, RentalList, ApplyList } from "../../Pages";
+import {
+  SetUmbrellaCount,
+  RentalList,
+  ApplyList,
+  OverdueList,
+} from "../../Pages";
 
 function Admin() {
   return (
@@ -29,6 +34,10 @@ function Admin() {
             <Route
               path="/rentallist"
               render={(props) => <RentalList {...props} />}
+            />
+            <Route
+              path="/overduelist"
+              render={(props) => <OverdueList {...props} />}
             />
           </Switch>
         </div>

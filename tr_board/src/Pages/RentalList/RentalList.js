@@ -4,6 +4,7 @@ import { hot } from "react-hot-loader";
 import { useTable, useRowSelect } from "react-table";
 import { getRentList, returnUmb } from "../../Function";
 import { ShowModal } from "../../Components/";
+import { noData } from "./RentalList.module.css";
 
 const Styles = styled.div`
   padding: 1rem;
@@ -142,18 +143,24 @@ function Table({ columns, data: data, doSetStateData }) {
           ))}
         </thead>
         <tbody {...getTableBodyProps()}>
-          {rows.slice(0, 10).map((row, i) => {
-            prepareRow(row);
-            return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map((cell) => {
-                  return (
-                    <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
-                  );
-                })}
-              </tr>
-            );
-          })}
+          {rows.length != 0 ? (
+            rows.slice(0, 10).map((row, i) => {
+              prepareRow(row);
+              return (
+                <tr {...row.getRowProps()}>
+                  {row.cells.map((cell) => {
+                    return (
+                      <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                    );
+                  })}
+                </tr>
+              );
+            })
+          ) : (
+            <tr className={`${noData}`}>
+              <td colSpan="5">대여 내역이 없습니다.</td>
+            </tr>
+          )}
         </tbody>
       </table>
       <p>Selected Rows: {Object.keys(selectedRowIds).length}</p>

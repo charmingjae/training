@@ -42,7 +42,7 @@ router.post("/api/login", (req, res) => {
     try {
       const getSaltedPW = await handler();
       const sql =
-        "SELECT COUNT(*), ANY_VALUE(auth) FROM member WHERE userID=? AND userPW =?";
+        "SELECT COUNT(*), ANY_VALUE(auth) FROM member WHERE studentNum=? AND userPW =?";
       db.query(sql, [userID, getSaltedPW], (err, result) => {
         if (err) {
           console.log(err);
@@ -147,7 +147,7 @@ router.post("/api/doapply", (req, res) => {
   const userName = req.body["user"];
   const qryRentUmb = "UPDATE umbInfo SET etc = etc - 1";
   const qryAddRentList =
-    "INSERT INTO applyList(userName, studentNum) VALUES(?,(SELECT studentNum FROM member where userID = ?))";
+    "INSERT INTO applyList(studentNum,userName) VALUES(?,(SELECT userID FROM member where studentNum = ?))";
   db.query(qryRentUmb, (err, result) => {
     if (!err) {
       db.query(qryAddRentList, [userName, userName], (err, result) => {
@@ -163,7 +163,7 @@ router.post("/api/doapply", (req, res) => {
 
 router.post("/api/doCheckIsRent", (req, res) => {
   const userName = req.body["user"];
-  const qryCheckIsRent = "SELECT COUNT(*) FROM rentList WHERE userName = ?";
+  const qryCheckIsRent = "SELECT COUNT(*) FROM rentList WHERE studentNum = ?";
   db.query(qryCheckIsRent, [userName], (err, result) => {
     if (!err) {
       if (result[0]["COUNT(*)"] >= 1) {
@@ -179,7 +179,7 @@ router.post("/api/doCheckIsRent", (req, res) => {
 
 router.post("/api/doCheckIsApply", (req, res) => {
   const userName = req.body["user"];
-  const qryCheckIsRent = "SELECT COUNT(*) FROM applyList WHERE userName = ?";
+  const qryCheckIsRent = "SELECT COUNT(*) FROM applyList WHERE studentNum = ?";
   db.query(qryCheckIsRent, [userName], (err, result) => {
     if (!err) {
       if (result[0]["COUNT(*)"] >= 1) {
@@ -196,7 +196,7 @@ router.post("/api/doCheckIsApply", (req, res) => {
 router.post("/api/doRentInfo", (req, res) => {
   const userName = req.body["user"];
   const qryGetRentInfo =
-    "SELECT rentDate, returnDate FROM rentList WHERE userName = ? ";
+    "SELECT rentDate, returnDate FROM rentList WHERE studentNum = ? ";
   db.query(qryGetRentInfo, [userName], (err, result) => {
     if (!err) {
       res.send({
@@ -276,6 +276,18 @@ router.post("/api/returnapply", (req, res) => {
   db.query(qryReturnUmb, [arrStudentNum], (err, result) => {
     if (!err) {
       res.send({ result: "success" });
+    } else {
+      console.log(err);
+    }
+  });
+});
+
+router.get("/api/getoverduelist", (req, res) => {
+  const qryGetRentList =
+    "SELECT userName, studentNum, DATE_FORMAT(rentDate,'%Y-%m-%d') as rentDate, DATE_FORMAT(returnDate,'%Y-%m-%d') as returnDate FROM rentList WHERE returnDate < NOW()";
+  db.query(qryGetRentList, (err, result) => {
+    if (!err) {
+      res.send(result);
     } else {
       console.log(err);
     }
