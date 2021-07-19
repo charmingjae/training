@@ -21,7 +21,8 @@ const Root = () => {
   // Login Function
   const doLogin = async ({ userID, userPW }) => {
     var getSigninResult = await signIn({ userID, userPW });
-    if (getSigninResult === undefined) {
+    console.log("[ROOT] : ", getSigninResult);
+    if (getSigninResult.result === "failed") {
       return undefined;
     } else {
       setUser(getSigninResult.userID);

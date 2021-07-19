@@ -12,12 +12,8 @@ function LoginForm({ authenticated, login, location }) {
 
   const onButtonClick = async () => {
     try {
-      // log now userID, userPW
-      console.log("[CHECK] userID : ", userID);
-      console.log("[CHECK] userPW : ", userPW);
       // try login using was passed doLogin function
       var getLoginResult = await login({ userID, userPW });
-      // console.log("[LoginForm.js] getLoginResult : ", getLoginResult);
       if (getLoginResult === undefined) throw new Error();
     } catch (e) {
       // 원래 login() 부분에서 throw new Error() 발생 시
