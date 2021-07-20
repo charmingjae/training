@@ -2,8 +2,8 @@ import React, { useState, useEffect, useMemo } from "react";
 import styled from "styled-components";
 import { hot } from "react-hot-loader";
 import { useTable, useRowSelect } from "react-table";
-import { getRentList, returnUmb } from "../../Function";
-import { ShowModal } from "../../Components/";
+import { getRentList, returnUmb, getFilterRentalList } from "../../Function";
+import { ShowModal, StuNumFilterInput } from "../../Components/";
 import { noData } from "./RentalList.module.css";
 
 const Styles = styled.div`
@@ -193,6 +193,25 @@ function Table({ columns, data: data, doSetStateData }) {
 function RentalList() {
   const [data, setData] = useState();
   const [stateData, setStateData] = useState(0);
+  const [stuNum, setStuNum] = useState();
+
+  const doSetStuNum = (value) => {
+    setStuNum(value);
+  };
+
+  const doFilterApplyList = async () => {
+    try {
+      if (stuNum === "" || stuNum === undefined) {
+        doGetRentList();
+      } else {
+        const getFilterList = await getFilterRentalList({ stuNum });
+        setData(getFilterList);
+        doSetStuNum();
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   const doSetStateData = () => {
     let chngStateData = stateData;
@@ -247,6 +266,11 @@ function RentalList() {
 
   return (
     <Styles>
+      <StuNumFilterInput
+        doSetStuNum={doSetStuNum}
+        stuNum={stuNum}
+        doFilterApplyList={doFilterApplyList}
+      />
       {data !== undefined && (
         <Table columns={columns} data={data} doSetStateData={doSetStateData} />
       )}

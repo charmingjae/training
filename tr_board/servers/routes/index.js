@@ -307,4 +307,30 @@ router.post("/api/getfilterapplylist", (req, res) => {
   });
 });
 
+router.post("/api/getfilterrentallist", (req, res) => {
+  const stuNum = req.body.stuNum;
+  const qryGetFilterRentalList =
+    "SELECT userName, DATE_FORMAT(rentDate,'%Y-%m-%d') as rentDate, DATE_FORMAT(returnDate,'%Y-%m-%d') as returnDate, studentNum FROM rentList WHERE studentNum = ?";
+  db.query(qryGetFilterRentalList, [stuNum], (err, result) => {
+    if (!err) {
+      res.send(result);
+    } else {
+      console.log(err);
+    }
+  });
+});
+
+router.post("/api/getfilteroverduelist", (req, res) => {
+  const stuNum = req.body.stuNum;
+  const qryGetFilterOverdueList =
+    "SELECT userName, studentNum, DATE_FORMAT(rentDate,'%Y-%m-%d') as rentDate, DATE_FORMAT(returnDate,'%Y-%m-%d') as returnDate FROM rentList WHERE returnDate < NOW() and studentNum = ?";
+  db.query(qryGetFilterOverdueList, [stuNum], (err, result) => {
+    if (!err) {
+      res.send(result);
+    } else {
+      console.log(err);
+    }
+  });
+});
+
 module.exports = router;

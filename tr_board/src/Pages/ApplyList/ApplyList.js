@@ -8,7 +8,7 @@ import {
   rentUmb,
   getFilterApplyList,
 } from "../../Function";
-import { ShowModal } from "../../Components";
+import { ShowModal, StuNumFilterInput } from "../../Components";
 import { noData } from "./ApplyList.module.css";
 
 const Styles = styled.div`
@@ -243,6 +243,20 @@ function ApplyList() {
     setStuNum(value);
   };
 
+  const doFilterApplyList = async () => {
+    try {
+      if (stuNum === "" || stuNum === undefined) {
+        doGetApplyList();
+      } else {
+        const getFilterList = await getFilterApplyList({ stuNum });
+        setData(getFilterList);
+        doSetStuNum();
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   const doSetStateData = () => {
     let chngStateData = stateData;
     setStateData(++chngStateData);
@@ -252,21 +266,6 @@ function ApplyList() {
     try {
       const getList = await getApplyList();
       setData(getList);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  const doFilterApplyList = async () => {
-    try {
-      if (stuNum === "" || stuNum === undefined) {
-        doGetApplyList();
-      } else {
-        const getFilterList = await getFilterApplyList({ stuNum });
-        setData(getFilterList);
-        doSetStuNum();
-        // doSetStateData();
-      }
     } catch (e) {
       console.log(e);
     }
@@ -298,11 +297,11 @@ function ApplyList() {
 
   return (
     <Styles>
-      <input
-        onChange={({ target: { value } }) => doSetStuNum(value)}
-        value={stuNum || ""}
-      ></input>
-      <button onClick={doFilterApplyList}>검색</button>
+      <StuNumFilterInput
+        doSetStuNum={doSetStuNum}
+        stuNum={stuNum}
+        doFilterApplyList={doFilterApplyList}
+      />
       {data !== undefined && (
         <Table columns={columns} data={data} doSetStateData={doSetStateData} />
       )}

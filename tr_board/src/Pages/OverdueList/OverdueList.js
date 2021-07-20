@@ -2,8 +2,12 @@ import React, { useState, useEffect, useMemo } from "react";
 import styled from "styled-components";
 import { hot } from "react-hot-loader";
 import { useTable, useRowSelect } from "react-table";
-import { getOverdueList, returnUmb } from "../../Function";
-import { ShowModal } from "../../Components";
+import {
+  getOverdueList,
+  returnUmb,
+  getFilterOverdueList,
+} from "../../Function";
+import { ShowModal, StuNumFilterInput } from "../../Components";
 import { noData } from "./OverdueList.module.css";
 
 const Styles = styled.div`
@@ -193,6 +197,25 @@ function Table({ columns, data: data, doSetStateData }) {
 function OverdueList() {
   const [data, setData] = useState();
   const [stateData, setStateData] = useState(0);
+  const [stuNum, setStuNum] = useState();
+
+  const doSetStuNum = (value) => {
+    setStuNum(value);
+  };
+
+  const doFilterOverdueList = async () => {
+    try {
+      if (stuNum === "" || stuNum === undefined) {
+        doGetOverdueList();
+      } else {
+        const getFilterList = await getFilterOverdueList({ stuNum });
+        setData(getFilterList);
+        doSetStuNum();
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   const doSetStateData = () => {
     let chngStateData = stateData;
@@ -247,6 +270,11 @@ function OverdueList() {
 
   return (
     <Styles>
+      <StuNumFilterInput
+        doSetStuNum={doSetStuNum}
+        stuNum={stuNum}
+        doFilterApplyList={doFilterOverdueList}
+      />
       {data !== undefined && (
         <Table columns={columns} data={data} doSetStateData={doSetStateData} />
       )}
