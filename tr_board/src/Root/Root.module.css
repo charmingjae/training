@@ -33,3 +33,45 @@ header{
     width: 50%;
     margin: auto;
 }
+
+
+@media (max-width: 414px) {
+    .mainDesign{
+        border: none;
+        outline: none;
+        padding: 0;
+        background: none;
+        color: white;
+        font-size: 4vh;
+        font-weight: bold;
+        margin-left: 5%;
+    }
+
+    header{
+        padding-top: 1%;
+        width: 100%;
+        margin: auto;
+    }
+
+    .otherDesign{
+        background: none;
+        border: 1;
+        border-color: white;
+        float: right;
+        color: white;
+        margin-right: 1%;
+        border-style: solid;
+        font-weight: bold;
+    }
+    .otherDesign:hover{
+        background-color:rgb(157, 136, 136);
+        transition-duration: 0.4s;
+    }
+
+    .size{
+        height: 30px;
+        width:20%;
+        margin: 0;
+        padding: 0;
+    }
+}

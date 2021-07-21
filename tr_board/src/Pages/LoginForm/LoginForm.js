@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import { hot } from "react-hot-loader";
+import { divContentWrapper, btnDoLogin } from "./LoginForm.module.css";
 
 // import input component
 import { LoginInput } from "../../Components";
@@ -41,10 +42,12 @@ function LoginForm({ authenticated, login, location }) {
 
   return (
     <>
-      <div>
-        <h1>Login</h1>
+      <div className={`${divContentWrapper}`}>
+        <h1>Welcome!</h1>
         <LoginInput setID={setID} setPW={setPW} />
-        <button onClick={onButtonClick}>Login</button>
+        <button className={`${btnDoLogin}`} onClick={onButtonClick}>
+          Login
+        </button>
       </div>
     </>
   );

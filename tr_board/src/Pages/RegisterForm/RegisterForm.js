@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import { hot } from "react-hot-loader";
 import { RegisterInput } from "../../Components";
+import { divContentWrapper, btnDoRegister } from "./RegisterForm.module.css";
 
 function RegisterForm({ authenticated, register, location }) {
   //
@@ -69,7 +70,7 @@ function RegisterForm({ authenticated, register, location }) {
   }
 
   return (
-    <div>
+    <div className={`${divContentWrapper}`}>
       <h1>Register</h1>
       <RegisterInput
         setID={setID}
@@ -77,7 +78,9 @@ function RegisterForm({ authenticated, register, location }) {
         setPhone={setPhone}
         setStuNum={setStuNum}
       />
-      <button onClick={onButtonClick}>Register</button>
+      <button className={`${btnDoRegister}`} onClick={onButtonClick}>
+        Register
+      </button>
     </div>
   );
 }

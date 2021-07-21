@@ -1,0 +1,43 @@
+.divContentWrapper{
+    margin: 0 auto;
+    text-align:center;
+}
+
+.btnDoRegister{
+    background-color: white;
+    /* border: solid 1px black; */
+    border: 0;
+    width: 400px;
+    height: 50px;
+    color: black;
+    font-size: 20px;
+    font-weight: lighter;
+}
+
+.btnDoRegister:hover{
+    background-color: #cbcaed;
+    transition-duration: 0.2s;
+}
+
+@media (max-width: 414px){
+    .divContentWrapper{
+        margin: 0 auto;
+        text-align:center;
+    }
+    
+    .btnDoRegister{
+        background-color: white;
+        /* border: solid 1px black; */
+        border: 0;
+        width: 300px;
+        height: 40px;
+        color: black;
+        font-size: 20px;
+        font-weight: lighter;
+    }
+    
+    .btnDoRegister:hover{
+        background-color: #cbcaed;
+        transition-duration: 0.2s;
+    }
+}
