@@ -3,7 +3,7 @@ import { inputStyle, divContentWrapper } from "./RegisterInput.module.css";
 
 function RegisterInput({ setID, setPW, setPhone, setStuNum }) {
   return (
-    <div className={`${divContentWrapper}`}>
+    <div>
       <input
         className={`${inputStyle}`}
         onChange={({ target: { value } }) => setID(value)}

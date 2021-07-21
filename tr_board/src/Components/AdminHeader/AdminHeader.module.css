@@ -14,3 +14,28 @@
     background-color:rgb(157, 136, 136);
     transition-duration: 0.4s;
 }
+
+.btnContentWrapper{
+    text-align: center;
+}
+
+@media (max-width: 414px){
+    .btnAdmin{
+        background: none;
+        border: 1;
+        border-color: white;
+        color: white;
+        margin-right: 1%;
+        border-style: solid;
+        font-size: 10px;
+        font-weight: lighter;
+        height: 30px;
+        width: fit-content;
+        margin-top: 10%;
+    }
+    
+    .btnAdmin:hover{
+        background-color:rgb(157, 136, 136);
+        transition-duration: 0.4s;
+    }
+}

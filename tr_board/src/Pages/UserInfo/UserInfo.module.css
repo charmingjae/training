@@ -11,8 +11,8 @@
 }
 
 .contentUserTheme{
-    font-size:2vw;
-    margin-top: 20%;
+    font-size:3vh;
+    margin-top: 30%;
     margin-bottom: 20%;
 }
 
@@ -43,4 +43,55 @@
     width: 15vw;
     height: 5vh;
     margin-top: 5%;
+}
+
+@media (max-width: 414px){
+    .divWrapMainContent{
+        font-family: 'NanumSquare', sans-serif;
+        display: flex;
+    }
+    
+    .divMainContent{
+        margin: auto;
+        text-align: center;
+    }
+    
+    .contentUserTheme{
+        font-size:3vh;
+        margin-top: 30%;
+        margin-bottom: 20%;
+    }
+    
+    .contentTheme{
+        font-size:4vh;
+        padding: 0;
+        margin: 0;
+        padding-top: 20%;
+        font-weight: 900;
+    }
+    
+    .contentSubTheme{
+        margin: 0;
+        padding: 0;
+        font-size:3vh;
+        font-weight: lighter;
+    }
+    
+    .buttonGetUmbrella{
+        background: none;
+        font-size: 1.3vw;
+        font-weight: 900;
+        background-color: white;
+        border: 1;
+        border-style: solid;
+        border-color: white;
+        color: #0443ef;
+        width: 15vw;
+        height: 5vh;
+        margin-top: 5%;
+    }
+    
+    h1{
+        font-size: 3vh;
+    }
 }

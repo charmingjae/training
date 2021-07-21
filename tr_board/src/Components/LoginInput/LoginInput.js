@@ -3,7 +3,7 @@ import { inputStyle, divContentWrapper } from "./LoginInput.module.css";
 
 function LoginInput({ setID, setPW }) {
   return (
-    <div className={`${divContentWrapper}`}>
+    <div>
       <input
         className={`${inputStyle}`}
         onChange={({ target: { value } }) => setID(value)}

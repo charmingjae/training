@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { hot } from "react-hot-loader";
-import { divWrapContents } from "./SetUmbrellaCount.module.css";
+import {
+  divWrapContents,
+  inputSetCount,
+  btnSetCount,
+} from "./SetUmbrellaCount.module.css";
 import { setUmbCount } from "../../Function";
 
 function SetUmbrellaCount() {
@@ -28,8 +32,12 @@ function SetUmbrellaCount() {
         onChange={({ target: { value } }) => setCount(value)}
         type="text"
         value={cntUmbrella || ""}
+        className={`${inputSetCount}`}
       />
-      <button onClick={onButtonClick}>Set</button>
+      <br />
+      <button className={`${btnSetCount}`} onClick={onButtonClick}>
+        Set
+      </button>
     </div>
   );
 }

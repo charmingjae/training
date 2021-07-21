@@ -11,6 +11,7 @@ import { LoginForm, Main, RegisterForm, UserInfo, Admin } from "../Pages";
 // import function
 import { signIn } from "../Function";
 import { signUp } from "../Function";
+import GlobalStyles from "./GlobalStyles";
 
 const Root = () => {
   // init user const
@@ -52,80 +53,83 @@ const Root = () => {
 
   // return
   return (
-    <Router>
-      <header>
-        <div>
-          <Link to="/" className={`${mainDesign}`}>
-            <button className={`${size} ${mainDesign}`}>Basket</button>
-          </Link>
+    <>
+      <Router>
+        <header>
+          <div>
+            <Link to="/" className={`${mainDesign}`}>
+              <button className={`${size} ${mainDesign}`}>Basket</button>
+            </Link>
 
-          {authenticated ? (
-            <>
-              <LogoutButton logout={doLogout} username={user} />
-              <Link to="/userinfo">
-                <MyinfoButton username={user} />
-              </Link>
-              {userAuth === "admin" ? (
-                <Link to="/admin">
-                  <AdminButton />
+            {authenticated ? (
+              <>
+                <LogoutButton logout={doLogout} username={user} />
+                <Link to="/userinfo">
+                  <MyinfoButton username={user} />
                 </Link>
-              ) : (
-                <></>
+                {userAuth === "admin" ? (
+                  <Link to="/admin">
+                    <AdminButton />
+                  </Link>
+                ) : (
+                  <></>
+                )}
+              </>
+            ) : (
+              <>
+                <Link to="/register">
+                  <button className={`${size} ${otherDesign}`}>Register</button>
+                </Link>
+                <Link to="/login">
+                  <button className={`${size} ${otherDesign}`}>Login</button>
+                </Link>
+              </>
+            )}
+          </div>
+        </header>
+        <main>
+          <Switch>
+            {/* <Route exact path="/" component={Main} /> */}
+            <Route
+              exact
+              path="/"
+              render={(props) => (
+                <Main authenticated={authenticated} user={user} {...props} />
               )}
-            </>
-          ) : (
-            <>
-              <Link to="/register">
-                <button className={`${size} ${otherDesign}`}>Register</button>
-              </Link>
-              <Link to="/login">
-                <button className={`${size} ${otherDesign}`}>Login</button>
-              </Link>
-            </>
-          )}
-        </div>
-      </header>
-      <main>
-        <Switch>
-          {/* <Route exact path="/" component={Main} /> */}
-          <Route
-            exact
-            path="/"
-            render={(props) => (
-              <Main authenticated={authenticated} user={user} {...props} />
-            )}
-          />
-          <Route
-            path="/login"
-            render={(props) => (
-              <LoginForm
-                authenticated={authenticated}
-                login={doLogin}
-                {...props}
-              />
-            )}
-          />
-          <Route
-            path="/register"
-            render={(props) => (
-              <RegisterForm
-                authenticated={authenticated}
-                register={doRegister}
-                {...props}
-              />
-            )}
-          />
-          <Route
-            path="/userinfo"
-            render={(props) => <UserInfo user={user} {...props} />}
-          />
-          <Route
-            path="/admin"
-            render={(props) => <Admin user={user} {...props} />}
-          />
-        </Switch>
-      </main>
-    </Router>
+            />
+            <Route
+              path="/login"
+              render={(props) => (
+                <LoginForm
+                  authenticated={authenticated}
+                  login={doLogin}
+                  {...props}
+                />
+              )}
+            />
+            <Route
+              path="/register"
+              render={(props) => (
+                <RegisterForm
+                  authenticated={authenticated}
+                  register={doRegister}
+                  {...props}
+                />
+              )}
+            />
+            <Route
+              path="/userinfo"
+              render={(props) => <UserInfo user={user} {...props} />}
+            />
+            <Route
+              path="/admin"
+              render={(props) => <Admin user={user} {...props} />}
+            />
+          </Switch>
+        </main>
+      </Router>
+      <GlobalStyles />
+    </>
   );
 };
 

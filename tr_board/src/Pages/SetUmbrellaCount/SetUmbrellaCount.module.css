@@ -1,3 +1,28 @@
 .divWrapContents{
-    
+    text-align: center;
+}
+
+.inputSetCount{
+    background-color: transparent;
+    border: 0;
+    border-bottom : solid 2px white;
+    color:white;
+    font-size: 150px;
+    padding: 0;
+    text-align: center;
+    width: 250px;
+    margin-top: 50px;
+}
+
+.inputSetCount:focus{
+    outline: none;
+}
+
+.btnSetCount{
+    font-size: 30px;
+    background-color: white;
+    border: 0;
+    width: 250px;
+    height: 50px;
+    margin-top: 3%;
 }
