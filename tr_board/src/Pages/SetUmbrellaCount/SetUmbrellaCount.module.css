@@ -12,6 +12,8 @@
     text-align: center;
     width: 250px;
     margin-top: 50px;
+    -webkit-appearance: none;
+    -webkit-border-radius: 0;
 }
 
 .inputSetCount:focus{

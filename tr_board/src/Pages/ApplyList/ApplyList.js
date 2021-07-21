@@ -9,7 +9,7 @@ import {
   getFilterApplyList,
 } from "../../Function";
 import { ShowModal, StuNumFilterInput } from "../../Components";
-import { noData } from "./ApplyList.module.css";
+import { noData, btnListComp } from "./ApplyList.module.css";
 
 const Styles = styled.div`
   padding: 1rem;
@@ -35,6 +35,7 @@ const Styles = styled.div`
       padding: 0.5rem;
       border-bottom: 1px solid black;
       border-right: 1px solid black;
+      font-size: 15px;
 
       :last-child {
         border-right: 0;
@@ -206,7 +207,7 @@ function Table({ columns, data: data, doSetStateData }) {
           })} */}
         </tbody>
       </table>
-      <p>Selected Rows: {Object.keys(selectedRowIds).length}</p>
+      {/* <p>Selected Rows: {Object.keys(selectedRowIds).length}</p> */}
       <pre>
         <code>
           {/* {JSON.stringify(
@@ -226,10 +227,14 @@ function Table({ columns, data: data, doSetStateData }) {
           }
         </code>
       </pre>
-      <button onClick={onButtonDeleteClick}>Delete</button>
-      <button onClick={onButtonAcceptClick}>Accept</button>
-      <button onClick={setModal}>Modal Test</button>
-      <ShowModal setModal={setModal} isModalOpen={isModalOpen} />
+      <button className={`${btnListComp}`} onClick={onButtonDeleteClick}>
+        Delete
+      </button>
+      <button className={`${btnListComp}`} onClick={onButtonAcceptClick}>
+        Accept
+      </button>
+      {/* <button onClick={setModal}>Modal Test</button>
+      <ShowModal setModal={setModal} isModalOpen={isModalOpen} /> */}
     </>
   );
 }

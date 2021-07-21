@@ -2,3 +2,18 @@
     text-align: center;
     background-color: black;
 }
+
+.btnListComp{
+    background-color: white;
+    border: 0;
+    color: #0443ef;
+    width: 100px;
+    height: 25px;
+    margin-right: 1%;
+}
+
+@media (max-width: 414px){
+    table th, td{
+        font-size: 9px;
+    }
+}

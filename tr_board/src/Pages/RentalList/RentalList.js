@@ -4,7 +4,7 @@ import { hot } from "react-hot-loader";
 import { useTable, useRowSelect } from "react-table";
 import { getRentList, returnUmb, getFilterRentalList } from "../../Function";
 import { ShowModal, StuNumFilterInput } from "../../Components/";
-import { noData } from "./RentalList.module.css";
+import { noData, btnListComp } from "./RentalList.module.css";
 
 const Styles = styled.div`
   padding: 1rem;
@@ -163,7 +163,7 @@ function Table({ columns, data: data, doSetStateData }) {
           )}
         </tbody>
       </table>
-      <p>Selected Rows: {Object.keys(selectedRowIds).length}</p>
+      {/* <p>Selected Rows: {Object.keys(selectedRowIds).length}</p> */}
       <pre>
         <code>
           {/* {JSON.stringify(
@@ -183,9 +183,11 @@ function Table({ columns, data: data, doSetStateData }) {
           }
         </code>
       </pre>
-      <button onClick={onButtonDeleteClick}>Delete</button>
-      <button onClick={setModal}>Modal Test</button>
-      <ShowModal setModal={setModal} isModalOpen={isModalOpen} />
+      <button className={`${btnListComp}`} onClick={onButtonDeleteClick}>
+        Delete
+      </button>
+      {/* <button onClick={setModal}>Modal Test</button> */}
+      {/* <ShowModal setModal={setModal} isModalOpen={isModalOpen} /> */}
     </>
   );
 }

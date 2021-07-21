@@ -1,0 +1,65 @@
+.divContentWrapper{
+    text-align:center;
+}
+
+.inputStuNumFilter{
+    width: 200px;
+    display: inline-block;
+    padding: 10px 15px;
+    font-size: 20px;
+    border-radius: 0;
+    border: 1px solid transparent;
+    -webkit-appearance: none;
+    -webkit-border-radius: 0;
+}
+
+.inputStuNumFilter:focus{
+    outline: none;
+}
+
+.btnDoFilter{
+    display: inline-block;
+    background-color: white;
+    padding: 10px 15px;
+    font-size: 20px;
+    font-weight: lighter;
+    border-radius: 0;
+    border: 1px solid transparent;
+    color: blue;
+    margin-left: 1%;
+    -webkit-appearance: none;
+}
+
+@media (max-width: 414px){
+    .divContentWrapper{
+        text-align:center;
+    }
+    
+    .inputStuNumFilter{
+        width: 100px;
+        display: inline-block;
+        padding: 5px 10px;
+        font-size: 15px;
+        border-radius: 0;
+        border: 1px solid transparent;
+        -webkit-appearance: none;
+        -webkit-border-radius: 0;
+    }
+    
+    .inputStuNumFilter:focus{
+        outline: none;
+    }
+    
+    .btnDoFilter{
+        display: inline-block;
+        background-color: white;
+        padding: 5px 10px;
+        font-size: 15px;
+        font-weight: lighter;
+        border-radius: 0;
+        border: 1px solid transparent;
+        color: blue;
+        margin-left: 1%;
+        -webkit-appearance: none;
+    }
+}
